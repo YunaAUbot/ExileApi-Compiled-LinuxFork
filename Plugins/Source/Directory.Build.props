@@ -1,0 +1,9 @@
+<Project>
+  <!-- Wine's Windows certificate APIs cannot validate NuGet's signing chains.
+       Keep package restore usable under Proton by suppressing only those
+       certificate-validation diagnostics. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU3018;NU3028;NU3037</NoWarn>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU3018;NU3028;NU3037</WarningsNotAsErrors>
+  </PropertyGroup>
+</Project>
