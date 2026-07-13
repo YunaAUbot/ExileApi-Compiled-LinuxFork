@@ -1,3 +1,18 @@
 .vs*
 *.dll.config
 *.[Pp]db
+
+# Per-user ExileAPI state and renderer runtime output.
+Logs/
+ClickableTransparentOverlay.renderer.log
+config/global/
+config/settings.json
+config/previousSettings.json
+config/themes/
+config/preload_alerts_personal.txt
+imgui.ini
+
+# Local renderer build/test artifacts.
+artifacts/
+renderer-src/**/bin/
+renderer-src/**/obj/

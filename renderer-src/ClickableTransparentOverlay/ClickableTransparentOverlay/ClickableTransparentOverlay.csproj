@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>CS8618;CS8604;CS8625</NoWarn>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Description>A library to create transparent overlays on the windows machines.</Description>
+    <PackageProjectUrl>https://github.com/zaafar/ClickableTransparentOverlay</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zaafar/ClickableTransparentOverlay</RepositoryUrl>
+    <Version>9.1.0</Version>
+    <AssemblyVersion>9.1.0.0</AssemblyVersion>
+    <FileVersion>9.1.0.0</FileVersion>
+    <InformationalVersion>9.1.0-wine-layered</InformationalVersion>
+    <AssemblyName>ClickableTransparentOverlay</AssemblyName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PublishAot>false</PublishAot>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ImGui.NET"><HintPath>../../../ImGui.NET.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SixLabors.ImageSharp"><HintPath>../../../SixLabors.ImageSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vortice.D3DCompiler"><HintPath>../../../Vortice.D3DCompiler.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vortice.Direct3D11"><HintPath>../../../Vortice.Direct3D11.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vortice.DXGI"><HintPath>../../../Vortice.DXGI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vortice.DirectX"><HintPath>../../../Vortice.DirectX.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vortice.Mathematics"><HintPath>../../../Vortice.Mathematics.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SharpGen.Runtime"><HintPath>../../../SharpGen.Runtime.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vanara.Core"><HintPath>../../../Vanara.Core.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vanara.PInvoke.Shared"><HintPath>../../../Vanara.PInvoke.Shared.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Vanara.PInvoke.User32"><HintPath>../../../Vanara.PInvoke.User32.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+</Project>
