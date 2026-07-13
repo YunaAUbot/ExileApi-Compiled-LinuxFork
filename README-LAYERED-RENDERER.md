@@ -36,7 +36,7 @@ The build uses the Windows .NET 10 SDK already installed in PoE's Proton prefix;
 no Linux system package or setting is changed.
 
 ```bash
-cd /home/auron/ExileApi-Compiled
+cd /home/USER/ExileApi-Compiled-LinuxFork
 ./build-layered-renderer.sh
 ./renderer-control.sh install
 ```
