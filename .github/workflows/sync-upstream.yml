@@ -1,0 +1,45 @@
+name: Sync upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 03:17 UTC. Scheduled workflows run from the default branch.
+    - cron: '17 3 * * *'
+
+# The workflow uses its repository-scoped GITHUB_TOKEN only to update this fork.
+permissions:
+  contents: write
+
+concurrency:
+  group: upstream-sync-master
+  cancel-in-progress: false
+
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out fork master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Merge upstream when conflict-free
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git remote add upstream https://github.com/exApiTools/ExileApi-Compiled.git
+          git fetch --no-tags upstream master
+
+          if git merge-base --is-ancestor upstream/master HEAD; then
+            echo 'Fork is already up to date.'
+            exit 0
+          fi
+
+          # A conflict makes git merge fail before the push below. The fork is
+          # therefore left untouched and the failed Actions run is the signal
+          # that manual conflict resolution is needed.
+          git merge --no-ff --no-edit upstream/master
+          git push origin HEAD:master

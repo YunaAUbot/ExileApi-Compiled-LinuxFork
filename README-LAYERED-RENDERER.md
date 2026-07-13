@@ -101,3 +101,11 @@ DXVK. DXVK used roughly 770 MiB RSS and 112 MiB GPU memory in the measured run.
 This is intentionally kept as the reliable default architecture; a future
 optimization can try a Wine-compatible GDI DXGI surface or dirty rectangles
 without changing the public ABI.
+
+## Upstream synchronization
+
+`.github/workflows/sync-upstream.yml` fetches
+`exApiTools/ExileApi-Compiled:master` daily (03:17 UTC) and can also be started
+from the Actions tab. It pushes an automatic merge only when Git can merge
+without conflicts. A conflict fails the workflow before its `git push`, leaving
+this fork unchanged for a manual resolution.
