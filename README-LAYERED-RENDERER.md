@@ -18,6 +18,10 @@ when interactive UI is hovered. The HWND, its initialization and its message
 pump stay on one dedicated thread; this is required by Wine when ExileCore's
 `PostInitialized` callback is asynchronous.
 
+Fully transparent ImGui fragments are discarded before blending. This avoids
+unnecessary render-target writes for sparse alpha textures such as Radar's
+recolored walkable-map texture, without any plugin-specific behavior.
+
 When a PoE window is present, the overlay is made its owned window. This keeps
 the overlay above KDE/XWayland fullscreen PoE without resizing it to the
 primary monitor. The overlay always retains the client rectangle provided by

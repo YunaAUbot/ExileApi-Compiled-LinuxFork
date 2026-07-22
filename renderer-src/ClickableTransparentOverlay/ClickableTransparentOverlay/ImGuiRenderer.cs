@@ -388,7 +388,16 @@
 
                     float4 main(PS_INPUT input) : SV_Target
                     {
-                        return input.col * texture0.Sample(sampler0, input.uv);
+                        float4 color = input.col * texture0.Sample(sampler0, input.uv);
+                        // Radar's recolored map is a large quad whose unused
+                        // cells have alpha 0. Avoid blending and writing those
+                        // pixels into the layered render target. This is
+                        // visually equivalent (the cleared target is already
+                        // transparent) and also benefits other sparse ImGui
+                        // textures without changing the public overlay ABI.
+                        if (color.a == 0.0f)
+                            discard;
+                        return color;
                     }";
             Compiler.Compile(pixelShaderCode, "main", "ps", "ps_4_0", out pixelShaderBlob, out _);
             if (pixelShaderBlob == null)
