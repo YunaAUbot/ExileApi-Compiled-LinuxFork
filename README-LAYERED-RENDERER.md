@@ -111,5 +111,7 @@ without changing the public ABI.
 `.github/workflows/sync-upstream.yml` fetches
 `exApiTools/ExileApi-Compiled:master` daily (03:17 UTC) and can also be started
 from the Actions tab. It pushes an automatic merge only when Git can merge
-without conflicts. A conflict fails the workflow before its `git push`, leaving
-this fork unchanged for a manual resolution.
+without conflicts. This includes a rewritten upstream history: the workflow
+then attempts Git's explicit content merge for unrelated histories. A conflict
+fails the workflow before its `git push`, leaving this fork unchanged for a
+manual resolution.

@@ -38,8 +38,27 @@ jobs:
             exit 0
           fi
 
-          # A conflict makes git merge fail before the push below. The fork is
-          # therefore left untouched and the failed Actions run is the signal
-          # that manual conflict resolution is needed.
-          git merge --no-ff --no-edit upstream/master
+          if git merge-base HEAD upstream/master >/dev/null; then
+            merge_args=(--no-ff --no-edit)
+          else
+            # Upstream rewrote its branch and no common Git ancestor remains.
+            # Git can still merge identical/non-overlapping file snapshots; it
+            # must be told explicitly to permit this kind of merge.
+            echo 'Upstream has no common history; attempting a content merge.'
+            echo '### Upstream history was rewritten' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Trying a conflict-free content merge with the current fork.' >> "$GITHUB_STEP_SUMMARY"
+            merge_args=(--allow-unrelated-histories --no-ff --no-edit)
+          fi
+
+          # Never pick a side automatically on a real content conflict. Abort
+          # before push so the fork remains unchanged and the run log provides
+          # a precise signal for manual resolution.
+          if ! git merge "${merge_args[@]}" upstream/master; then
+            git merge --abort || true
+            echo '::error::Upstream has overlapping changes; no files were pushed.'
+            echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"
+            echo 'The attempted merge had overlapping file changes. The fork was not modified.' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
           git push origin HEAD:master
