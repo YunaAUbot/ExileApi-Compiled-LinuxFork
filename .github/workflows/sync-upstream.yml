@@ -32,6 +32,10 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git remote add upstream https://github.com/exApiTools/ExileApi-Compiled.git
           git fetch --no-tags upstream master
+          git fetch --no-tags origin upstream-sync-base:refs/remotes/origin/upstream-sync-base
+
+          upstream_head=$(git rev-parse upstream/master)
+          upstream_base=$(git rev-parse origin/upstream-sync-base)
 
           if git merge-base --is-ancestor upstream/master HEAD; then
             echo 'Fork is already up to date.'
@@ -39,26 +43,29 @@ jobs:
           fi
 
           if git merge-base HEAD upstream/master >/dev/null; then
-            merge_args=(--no-ff --no-edit)
+            # The ordinary case: retain upstream's history in a merge commit.
+            git merge --no-ff --no-edit upstream/master
           else
             # Upstream rewrote its branch and no common Git ancestor remains.
-            # Git can still merge identical/non-overlapping file snapshots; it
-            # must be told explicitly to permit this kind of merge.
+            # Recreate a proper three-way merge from the last synchronized
+            # upstream snapshot, which is retained on the fork as the
+            # upstream-sync-base branch even if upstream force-pushes again.
             echo 'Upstream has no common history; attempting a content merge.'
             echo '### Upstream history was rewritten' >> "$GITHUB_STEP_SUMMARY"
-            echo 'Trying a conflict-free content merge with the current fork.' >> "$GITHUB_STEP_SUMMARY"
-            merge_args=(--allow-unrelated-histories --no-ff --no-edit)
+            echo 'Applying the upstream delta to the last synchronized snapshot.' >> "$GITHUB_STEP_SUMMARY"
+            patch_file=$(mktemp)
+            git diff --binary "$upstream_base" "$upstream_head" > "$patch_file"
+            if ! git apply --3way --index "$patch_file"; then
+              echo '::error::Upstream has overlapping changes; no files were pushed.'
+              echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"
+              echo 'The three-way content merge had overlapping file changes. The fork was not modified.' >> "$GITHUB_STEP_SUMMARY"
+              exit 1
+            fi
+            if ! git diff --cached --quiet; then
+              git commit -m "Sync rewritten upstream snapshot"
+            fi
           fi
 
-          # Never pick a side automatically on a real content conflict. Abort
-          # before push so the fork remains unchanged and the run log provides
-          # a precise signal for manual resolution.
-          if ! git merge "${merge_args[@]}" upstream/master; then
-            git merge --abort || true
-            echo '::error::Upstream has overlapping changes; no files were pushed.'
-            echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"
-            echo 'The attempted merge had overlapping file changes. The fork was not modified.' >> "$GITHUB_STEP_SUMMARY"
-            exit 1
-          fi
-
-          git push origin HEAD:master
+          # Advance the durable merge base only after the sync completed. This
+          # remote branch is metadata, not a user-facing development branch.
+          git push origin HEAD:master "$upstream_head:refs/heads/upstream-sync-base"

@@ -112,6 +112,8 @@ without changing the public ABI.
 `exApiTools/ExileApi-Compiled:master` daily (03:17 UTC) and can also be started
 from the Actions tab. It pushes an automatic merge only when Git can merge
 without conflicts. This includes a rewritten upstream history: the workflow
-then attempts Git's explicit content merge for unrelated histories. A conflict
-fails the workflow before its `git push`, leaving this fork unchanged for a
-manual resolution.
+then applies the upstream's delta to the last synchronized snapshot using a
+three-way patch. The snapshot is retained on the fork's `upstream-sync-base`
+metadata branch, so a later force-push cannot discard the comparison base. A
+conflict fails the workflow before its `git push`, leaving this fork unchanged
+for a manual resolution.
