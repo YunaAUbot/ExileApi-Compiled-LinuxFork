@@ -68,4 +68,6 @@ jobs:
 
           # Advance the durable merge base only after the sync completed. This
           # remote branch is metadata, not a user-facing development branch.
-          git push origin HEAD:master "$upstream_head:refs/heads/upstream-sync-base"
+          # This branch intentionally follows upstream even when its history is
+          # rewritten, so advancing it is a controlled force-update.
+          git push origin HEAD:master "+$upstream_head:refs/heads/upstream-sync-base"
