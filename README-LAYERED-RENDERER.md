@@ -22,6 +22,11 @@ Fully transparent ImGui fragments are discarded before blending. This avoids
 unnecessary render-target writes for sparse alpha textures such as Radar's
 recolored walkable-map texture, without any plugin-specific behavior.
 
+When no ImGui UI requests the mouse, the layered window explicitly returns
+`HTTRANSPARENT` during hit-testing and refreshes its native input region after
+style changes. This keeps draw-only overlays such as ground-item labels
+click-through under Wine/XWayland while F12 UI remains interactive.
+
 When a PoE window is present, the overlay is made its owned window. This keeps
 the overlay above KDE/XWayland fullscreen PoE without resizing it to the
 primary monitor. The overlay always retains the client rectangle provided by

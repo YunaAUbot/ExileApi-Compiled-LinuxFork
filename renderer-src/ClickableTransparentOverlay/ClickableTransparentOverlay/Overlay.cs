@@ -510,8 +510,12 @@
                 deltaTime = stopwatch.ElapsedTicks / (float)Stopwatch.Frequency;
                 stopwatch.Restart();
                 this.window.PumpEvents();
-                Utils.SetOverlayClickable(this.window.Handle, this.inputhandler.Update());
+                this.inputhandler.Update();
                 this.renderer.Update(deltaTime, () => { Render(); });
+                // Decide after plugins have emitted this frame's ImGui UI.
+                // Draw-list-only overlays such as NinjaPrice use NoInputs and
+                // therefore remain pass-through over ground item labels.
+                Utils.SetOverlayClickable(this.window.Handle, this.inputhandler.WantsMouseCapture());
                 var activeView = this.useLayeredBackend ? this.layeredPresenter.RenderTargetView : this.renderView;
                 this.deviceContext.OMSetRenderTargets(activeView);
                 this.deviceContext.ClearRenderTargetView(activeView, clearColor);
@@ -760,6 +764,12 @@
         {
             if (this.overlayIsReady)
             {
+                // WS_EX_TRANSPARENT alone is not a reliable cross-process
+                // hit-test bypass under Wine/XWayland. Explicitly decline the
+                // hit while no interactive ImGui UI owns the mouse.
+                if ((WindowMessage)msg == WindowMessage.NcHitTest && !Utils.IsClickable)
+                    return new IntPtr(-1); // HTTRANSPARENT
+
                 if (this.inputhandler.ProcessMessage((WindowMessage)msg, wParam, lParam) ||
                     this.ProcessMessage((WindowMessage)msg, wParam, lParam))
                 {

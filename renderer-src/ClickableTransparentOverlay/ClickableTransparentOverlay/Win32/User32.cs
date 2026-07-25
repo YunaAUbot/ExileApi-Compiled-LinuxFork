@@ -127,6 +127,7 @@
         SetCursor = 0x0020,
         MouseActivate = 0x0021,
         ChildActivate = 0x0022,
+        NcHitTest = 0x0084,
         KeyDown = 0x0100,
         KeyUp = 0x0101,
         Char = 0x0102,

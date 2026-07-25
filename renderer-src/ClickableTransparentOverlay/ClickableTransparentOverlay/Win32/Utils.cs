@@ -80,9 +80,10 @@
             var before = User32.GetWindowLong(handle, (int)WindowLongParam.GWL_EXSTYLE);
             Clickable = (WindowExStyles)before | WindowExStyles.WS_EX_LAYERED;
             NotClickable = Clickable | WindowExStyles.WS_EX_TRANSPARENT;
-            User32.SetWindowLong(handle, (int)WindowLongParam.GWL_EXSTYLE, (uint)Clickable);
+            // Start pass-through immediately. Waiting for the first ImGui
+            // frame leaves a short but visible input-blocking window on Wine.
             IsClickable = true;
-            EnsureTopmost(handle);
+            SetOverlayClickable(handle, false);
         }
 
         /// <summary>
@@ -105,6 +106,16 @@
                 }
 
                 IsClickable = WantClickable;
+                // Wine/XWayland does not always rebuild the native input
+                // region after a WS_EX_TRANSPARENT style change unless the
+                // non-client frame is explicitly refreshed.
+                const uint SWP_NOSIZE = 0x0001;
+                const uint SWP_NOMOVE = 0x0002;
+                const uint SWP_NOACTIVATE = 0x0010;
+                const uint SWP_FRAMECHANGED = 0x0020;
+                const uint SWP_SHOWWINDOW = 0x0040;
+                User32.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0,
+                    SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
                 EnsureTopmost(handle);
             }
         }

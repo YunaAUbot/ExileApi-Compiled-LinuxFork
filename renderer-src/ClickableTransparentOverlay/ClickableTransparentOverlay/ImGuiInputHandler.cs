@@ -41,6 +41,13 @@
             return io.WantCaptureMouse;
         }
 
+        /// <summary>
+        /// Read after the current ImGui frame was built. This makes the native
+        /// input region follow the UI that is visible now, rather than the
+        /// previous frame's capture state.
+        /// </summary>
+        public bool WantsMouseCapture() => ImGui.GetIO().WantCaptureMouse;
+
         public bool ProcessMessage(WindowMessage msg, UIntPtr wParam, IntPtr lParam)
         {
             if (ImGui.GetCurrentContext() == IntPtr.Zero)
