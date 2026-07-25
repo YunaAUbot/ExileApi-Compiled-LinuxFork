@@ -54,7 +54,11 @@ jobs:
             echo '### Upstream history was rewritten' >> "$GITHUB_STEP_SUMMARY"
             echo 'Applying the upstream delta to the last synchronized snapshot.' >> "$GITHUB_STEP_SUMMARY"
             patch_file=$(mktemp)
-            git diff --binary "$upstream_base" "$upstream_head" > "$patch_file"
+            # This fork owns the Wine/Proton drop-in renderer. Never replace
+            # its active DLL with Upstream's Windows renderer during a binary
+            # snapshot sync; all other upstream files remain eligible.
+            git diff --binary "$upstream_base" "$upstream_head" -- . \
+              ':(exclude)ClickableTransparentOverlay.dll' > "$patch_file"
             if ! git apply --3way --index "$patch_file"; then
               echo '::error::Upstream has overlapping changes; no files were pushed.'
               echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"

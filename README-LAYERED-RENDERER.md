@@ -122,3 +122,8 @@ three-way patch. The snapshot is retained on the fork's `upstream-sync-base`
 metadata branch, so a later force-push cannot discard the comparison base. A
 conflict fails the workflow before its `git push`, leaving this fork unchanged
 for a manual resolution.
+
+The snapshot sync deliberately excludes `ClickableTransparentOverlay.dll`.
+That file is the fork's Wine/Proton renderer and is rebuilt from the vendored
+source here; accepting Upstream's Windows binary would undo the compatibility
+layer.
