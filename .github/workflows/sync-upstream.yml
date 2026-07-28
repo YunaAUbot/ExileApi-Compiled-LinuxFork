@@ -76,6 +76,11 @@ jobs:
             if ! git diff --cached --quiet; then
               git commit -m "Sync rewritten upstream snapshot"
             fi
+
+            # Preserve the fork's resulting tree, but record the rewritten
+            # upstream tip as a second parent. This gives GitHub a real common
+            # ancestor again, so its Ahead/Behind badge remains meaningful.
+            git merge --allow-unrelated-histories -s ours --no-edit upstream/master
           fi
 
           # Advance the durable merge base only after the sync completed. This
