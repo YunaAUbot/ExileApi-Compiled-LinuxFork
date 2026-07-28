@@ -59,11 +59,19 @@ jobs:
             # snapshot sync; all other upstream files remain eligible.
             git diff --binary "$upstream_base" "$upstream_head" -- . \
               ':(exclude)ClickableTransparentOverlay.dll' > "$patch_file"
-            if ! git apply --3way --index "$patch_file"; then
-              echo '::error::Upstream has overlapping changes; no files were pushed.'
-              echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"
-              echo 'The three-way content merge had overlapping file changes. The fork was not modified.' >> "$GITHUB_STEP_SUMMARY"
-              exit 1
+            if [ -s "$patch_file" ]; then
+              if ! git apply --3way --index "$patch_file"; then
+                echo '::error::Upstream has overlapping changes; no files were pushed.'
+                echo '### Upstream sync needs manual resolution' >> "$GITHUB_STEP_SUMMARY"
+                echo 'The three-way content merge had overlapping file changes. The fork was not modified.' >> "$GITHUB_STEP_SUMMARY"
+                exit 1
+              fi
+            else
+              # The rewrite only changed files intentionally owned by this
+              # fork (currently the renderer DLL). It is still a successful
+              # sync: keep the fork tree and advance the durable base below.
+              echo 'No upstream files eligible for synchronization changed.'
+              echo 'The fork-owned renderer was retained.' >> "$GITHUB_STEP_SUMMARY"
             fi
             if ! git diff --cached --quiet; then
               git commit -m "Sync rewritten upstream snapshot"
