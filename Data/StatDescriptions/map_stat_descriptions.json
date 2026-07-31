@@ -1,8 +1,8 @@
 [
   {
     "Stats": [
-      3296,
-      3297
+      3299,
+      3300
     ],
     "Sections": [
       {
@@ -26,7 +26,8 @@
   },
   {
     "Stats": [
-      1041
+      1041,
+      23294
     ],
     "Sections": [
       {
@@ -34,9 +35,14 @@
           {
             "Item1": 1,
             "Item2": 2147483647
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
+          "NoFunction",
           "NoFunction"
         ],
         "String": "{0}% increased Quantity of Items found in this Area"
@@ -46,10 +52,15 @@
           {
             "Item1": -2147483648,
             "Item2": -1
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
-          "Negate"
+          "Negate",
+          "NoFunction"
         ],
         "String": "{0}% reduced Quantity of Items found in this Area"
       }
@@ -57,7 +68,8 @@
   },
   {
     "Stats": [
-      1246
+      1246,
+      23295
     ],
     "Sections": [
       {
@@ -65,9 +77,14 @@
           {
             "Item1": 1,
             "Item2": 2147483647
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
+          "NoFunction",
           "NoFunction"
         ],
         "String": "{0}% increased Rarity of Items found in this Area"
@@ -77,10 +94,15 @@
           {
             "Item1": -2147483648,
             "Item2": -1
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
-          "Negate"
+          "Negate",
+          "NoFunction"
         ],
         "String": "{0}% reduced Rarity of Items found in this Area"
       }
@@ -88,7 +110,49 @@
   },
   {
     "Stats": [
-      3960
+      22908,
+      23296
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction",
+          "NoFunction"
+        ],
+        "String": "{0}% increased Dead Man's Sulphur found in this Area"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": -1
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "Negate",
+          "NoFunction"
+        ],
+        "String": "{0}% reduced Dead Man's Sulphur found in this Area"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      3965
     ],
     "Sections": [
       {
@@ -107,7 +171,8 @@
   },
   {
     "Stats": [
-      1026
+      1026,
+      23293
     ],
     "Sections": [
       {
@@ -115,9 +180,14 @@
           {
             "Item1": 1,
             "Item2": 2147483647
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
+          "NoFunction",
           "NoFunction"
         ],
         "String": "{0}% increased Pack size"
@@ -127,10 +197,15 @@
           {
             "Item1": -2147483648,
             "Item2": -1
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
-          "Negate"
+          "Negate",
+          "NoFunction"
         ],
         "String": "{0}% reduced Pack size"
       }
@@ -157,7 +232,7 @@
   },
   {
     "Stats": [
-      2570
+      2572
     ],
     "Sections": [
       {
@@ -176,7 +251,7 @@
   },
   {
     "Stats": [
-      10754
+      10776
     ],
     "Sections": [
       {
@@ -207,7 +282,7 @@
   },
   {
     "Stats": [
-      10750
+      10772
     ],
     "Sections": [
       {
@@ -238,7 +313,7 @@
   },
   {
     "Stats": [
-      10755
+      10777
     ],
     "Sections": [
       {
@@ -269,7 +344,7 @@
   },
   {
     "Stats": [
-      10751
+      10773
     ],
     "Sections": [
       {
@@ -300,7 +375,7 @@
   },
   {
     "Stats": [
-      10752
+      10774
     ],
     "Sections": [
       {
@@ -331,7 +406,7 @@
   },
   {
     "Stats": [
-      10753
+      10775
     ],
     "Sections": [
       {
@@ -362,7 +437,7 @@
   },
   {
     "Stats": [
-      10756
+      10778
     ],
     "Sections": [
       {
@@ -393,7 +468,7 @@
   },
   {
     "Stats": [
-      10757
+      10779
     ],
     "Sections": [
       {
@@ -424,7 +499,7 @@
   },
   {
     "Stats": [
-      10758
+      10780
     ],
     "Sections": [
       {
@@ -443,7 +518,765 @@
   },
   {
     "Stats": [
-      16215
+      23006
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains a Brinerot Raiding Party"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      22998
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains Filthscrabble"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      22994
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional pack of Crabs"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional packs of Crabs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      22995
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional pack of Drowned"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional packs of Drowned"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23078
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional pack of Octopi"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional packs of Octopi"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      22993
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional pack of Sea Beasts"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional packs of Sea Beasts"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23010
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[BasicCurrency|Basic Currency] items dropped by Monsters in Area will instead drop as Stacked Decks"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23008
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "{0}% increased quantity of items found in Areas per Chart connection"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": -1
+          }
+        ],
+        "StatConversionTypes": [
+          "Negate"
+        ],
+        "String": "{0}% reduced quantity of items found in Areas per Chart connection"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23075
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "{0}% more Rarity of Items found in Area"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": -1
+          }
+        ],
+        "StatConversionTypes": [
+          "Negate"
+        ],
+        "String": "{0}% less Rarity of Items found in Area"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23009
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 99
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "{0}% of Equipment dropped by Monsters in Area is converted to Gold"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 100,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Equipment dropped by Monsters in Area is converted to Gold"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23084
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Monsters in all Voyage Areas cannot drop Equipment, Flasks or Tinctures"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23007
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "{0}% increased number of Rare monsters in Area per Chart connection"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": -1
+          }
+        ],
+        "StatConversionTypes": [
+          "Negate"
+        ],
+        "String": "{0}% reduced number of Rare monsters in Area per Chart connection"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23237
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 99
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area have {0}% chance to drop a Support Gem"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 100,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop a Support Gem"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23001
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Ancient Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Ancient Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23004
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Annulment Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Annulment Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23175
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Blessed Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Blessed Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23170
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Chaos Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Chaos Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23173
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Chromatic Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Chromatic Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23002
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Divine Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Divine Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23003
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Exalted Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Exalted Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23172
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Gemcutter's Prism"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Gemcutter's Prisms"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23176
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Regal Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Regal Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23174
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Orb of Regret"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Orbs of Regret"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23074
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Scarab"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Scarabs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23171
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop an additional Vaal Orb"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Rare Monsters in Area drop {0} additional Vaal Orbs"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23005
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains an additional Pirate's Locker"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area contains {0} additional Pirate's Lockers"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      16255
     ],
     "Sections": [
       {
@@ -462,7 +1295,7 @@
   },
   {
     "Stats": [
-      22332
+      22391
     ],
     "Sections": [
       {
@@ -481,7 +1314,7 @@
   },
   {
     "Stats": [
-      20868
+      20916
     ],
     "Sections": [
       {
@@ -500,7 +1333,7 @@
   },
   {
     "Stats": [
-      18371
+      18413
     ],
     "Sections": [
       {
@@ -519,7 +1352,69 @@
   },
   {
     "Stats": [
-      19901
+      23012
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[ContainsAbyss|Abysses] in Area contain an additional Pit"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[ContainsAbyss|Abysses] in Area contain {0} additional Pits"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      23017
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 1
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[DNT] Rare Monsters spawned by Abysses in Area have an additional Abyssal Monster Modifier"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": 2,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[DNT] Rare Monsters spawned by Abysses in Area have {0} additional Abyssal Monster Modifiers"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      19949
     ],
     "Sections": [
       {
@@ -538,7 +1433,7 @@
   },
   {
     "Stats": [
-      14037
+      14072
     ],
     "Sections": [
       {
@@ -569,7 +1464,26 @@
   },
   {
     "Stats": [
-      22475
+      23016
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "[ContainsAbyss|Abyss] Pits in Area that do not contain a reward instead create an [AbyssalCrystal|Abyssal Crystal]"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      22534
     ],
     "Sections": [
       {
@@ -600,7 +1514,7 @@
   },
   {
     "Stats": [
-      19885
+      19933
     ],
     "Sections": [
       {
@@ -619,7 +1533,7 @@
   },
   {
     "Stats": [
-      13923
+      13958
     ],
     "Sections": [
       {
@@ -650,7 +1564,7 @@
   },
   {
     "Stats": [
-      13864
+      13899
     ],
     "Sections": [
       {
@@ -705,7 +1619,8 @@
   },
   {
     "Stats": [
-      13853
+      13888,
+      23299
     ],
     "Sections": [
       {
@@ -713,9 +1628,14 @@
           {
             "Item1": 1,
             "Item2": 99
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
+          "NoFunction",
           "NoFunction"
         ],
         "String": "Area has {0}% chance for all Monsters to be at least Magic"
@@ -725,9 +1645,14 @@
           {
             "Item1": 100,
             "Item2": 2147483647
+          },
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
           }
         ],
         "StatConversionTypes": [
+          "NoFunction",
           "NoFunction"
         ],
         "String": "Monsters in Area are at least Magic"
@@ -736,7 +1661,7 @@
   },
   {
     "Stats": [
-      21137
+      21185
     ],
     "Sections": [
       {
@@ -767,7 +1692,7 @@
   },
   {
     "Stats": [
-      19895
+      19943
     ],
     "Sections": [
       {
@@ -786,7 +1711,7 @@
   },
   {
     "Stats": [
-      20229
+      20277
     ],
     "Sections": [
       {
@@ -805,7 +1730,7 @@
   },
   {
     "Stats": [
-      19950
+      19998
     ],
     "Sections": [
       {
@@ -824,7 +1749,7 @@
   },
   {
     "Stats": [
-      13926
+      13961
     ],
     "Sections": [
       {
@@ -855,7 +1780,7 @@
   },
   {
     "Stats": [
-      22485
+      22544
     ],
     "Sections": [
       {
@@ -886,7 +1811,7 @@
   },
   {
     "Stats": [
-      13882
+      13917
     ],
     "Sections": [
       {
@@ -917,7 +1842,7 @@
   },
   {
     "Stats": [
-      19878
+      19926
     ],
     "Sections": [
       {
@@ -936,7 +1861,7 @@
   },
   {
     "Stats": [
-      16666
+      16706
     ],
     "Sections": [
       {
@@ -967,7 +1892,7 @@
   },
   {
     "Stats": [
-      19879
+      19927
     ],
     "Sections": [
       {
@@ -998,7 +1923,7 @@
   },
   {
     "Stats": [
-      19876
+      19924
     ],
     "Sections": [
       {
@@ -1017,7 +1942,7 @@
   },
   {
     "Stats": [
-      13685
+      13712
     ],
     "Sections": [
       {
@@ -1048,7 +1973,7 @@
   },
   {
     "Stats": [
-      19877
+      19925
     ],
     "Sections": [
       {
@@ -1079,7 +2004,7 @@
   },
   {
     "Stats": [
-      22474
+      22533
     ],
     "Sections": [
       {
@@ -1098,7 +2023,7 @@
   },
   {
     "Stats": [
-      19888
+      19936
     ],
     "Sections": [
       {
@@ -1129,7 +2054,7 @@
   },
   {
     "Stats": [
-      19886
+      19934
     ],
     "Sections": [
       {
@@ -1148,7 +2073,7 @@
   },
   {
     "Stats": [
-      10533
+      10554
     ],
     "Sections": [
       {
@@ -1179,7 +2104,7 @@
   },
   {
     "Stats": [
-      19887
+      19935
     ],
     "Sections": [
       {
@@ -1198,7 +2123,7 @@
   },
   {
     "Stats": [
-      13729
+      13756
     ],
     "Sections": [
       {
@@ -1229,7 +2154,7 @@
   },
   {
     "Stats": [
-      20685
+      20733
     ],
     "Sections": [
       {
@@ -1248,7 +2173,7 @@
   },
   {
     "Stats": [
-      20686
+      20734
     ],
     "Sections": [
       {
@@ -1267,7 +2192,7 @@
   },
   {
     "Stats": [
-      22713
+      22772
     ],
     "Sections": [
       {
@@ -1286,7 +2211,7 @@
   },
   {
     "Stats": [
-      20684
+      20732
     ],
     "Sections": [
       {
@@ -1305,7 +2230,7 @@
   },
   {
     "Stats": [
-      15703
+      15743
     ],
     "Sections": [
       {
@@ -1336,7 +2261,7 @@
   },
   {
     "Stats": [
-      22205
+      22260
     ],
     "Sections": [
       {
@@ -1355,7 +2280,7 @@
   },
   {
     "Stats": [
-      22550
+      22609
     ],
     "Sections": [
       {
@@ -1374,7 +2299,7 @@
   },
   {
     "Stats": [
-      15704
+      15744
     ],
     "Sections": [
       {
@@ -1405,7 +2330,7 @@
   },
   {
     "Stats": [
-      19851
+      19899
     ],
     "Sections": [
       {
@@ -1424,7 +2349,7 @@
   },
   {
     "Stats": [
-      20763
+      20811
     ],
     "Sections": [
       {
@@ -1443,7 +2368,7 @@
   },
   {
     "Stats": [
-      20682
+      20730
     ],
     "Sections": [
       {
@@ -1462,7 +2387,7 @@
   },
   {
     "Stats": [
-      19862
+      19910
     ],
     "Sections": [
       {
@@ -1481,7 +2406,7 @@
   },
   {
     "Stats": [
-      22326
+      22385
     ],
     "Sections": [
       {
@@ -1500,7 +2425,7 @@
   },
   {
     "Stats": [
-      22330
+      22389
     ],
     "Sections": [
       {
@@ -1531,7 +2456,7 @@
   },
   {
     "Stats": [
-      13807
+      13839
     ],
     "Sections": [
       {
@@ -1550,7 +2475,7 @@
   },
   {
     "Stats": [
-      5564
+      5575
     ],
     "Sections": [
       {
@@ -1581,7 +2506,7 @@
   },
   {
     "Stats": [
-      22674
+      22733
     ],
     "Sections": [
       {
@@ -1600,7 +2525,7 @@
   },
   {
     "Stats": [
-      21720
+      21775
     ],
     "Sections": [
       {
@@ -1619,7 +2544,7 @@
   },
   {
     "Stats": [
-      22323
+      22382
     ],
     "Sections": [
       {
@@ -1650,7 +2575,7 @@
   },
   {
     "Stats": [
-      22325
+      22384
     ],
     "Sections": [
       {
@@ -1681,7 +2606,7 @@
   },
   {
     "Stats": [
-      22324
+      22383
     ],
     "Sections": [
       {
@@ -1712,7 +2637,7 @@
   },
   {
     "Stats": [
-      22331
+      22390
     ],
     "Sections": [
       {
@@ -1731,7 +2656,7 @@
   },
   {
     "Stats": [
-      22472
+      22531
     ],
     "Sections": [
       {
@@ -1762,7 +2687,7 @@
   },
   {
     "Stats": [
-      22318
+      22377
     ],
     "Sections": [
       {
@@ -1793,7 +2718,7 @@
   },
   {
     "Stats": [
-      20562
+      20610
     ],
     "Sections": [
       {
@@ -1824,7 +2749,7 @@
   },
   {
     "Stats": [
-      18235
+      18277
     ],
     "Sections": [
       {
@@ -1843,7 +2768,7 @@
   },
   {
     "Stats": [
-      19870
+      19918
     ],
     "Sections": [
       {
@@ -1862,7 +2787,7 @@
   },
   {
     "Stats": [
-      20726
+      20774
     ],
     "Sections": [
       {
@@ -1893,7 +2818,7 @@
   },
   {
     "Stats": [
-      19872
+      19920
     ],
     "Sections": [
       {
@@ -1924,7 +2849,7 @@
   },
   {
     "Stats": [
-      19871
+      19919
     ],
     "Sections": [
       {
@@ -1943,7 +2868,7 @@
   },
   {
     "Stats": [
-      20683
+      20731
     ],
     "Sections": [
       {
@@ -1962,7 +2887,7 @@
   },
   {
     "Stats": [
-      17518
+      17560
     ],
     "Sections": [
       {
@@ -1993,7 +2918,7 @@
   },
   {
     "Stats": [
-      13997
+      14032
     ],
     "Sections": [
       {
@@ -2024,7 +2949,7 @@
   },
   {
     "Stats": [
-      19900
+      19948
     ],
     "Sections": [
       {
@@ -2043,7 +2968,7 @@
   },
   {
     "Stats": [
-      20597
+      20645
     ],
     "Sections": [
       {
@@ -2062,7 +2987,7 @@
   },
   {
     "Stats": [
-      20227
+      20275
     ],
     "Sections": [
       {
@@ -2081,7 +3006,7 @@
   },
   {
     "Stats": [
-      22476
+      22535
     ],
     "Sections": [
       {
@@ -2112,7 +3037,7 @@
   },
   {
     "Stats": [
-      19897
+      19945
     ],
     "Sections": [
       {
@@ -2131,7 +3056,7 @@
   },
   {
     "Stats": [
-      22477
+      22536
     ],
     "Sections": [
       {
@@ -2150,7 +3075,7 @@
   },
   {
     "Stats": [
-      19896
+      19944
     ],
     "Sections": [
       {
@@ -2181,7 +3106,7 @@
   },
   {
     "Stats": [
-      22322
+      22381
     ],
     "Sections": [
       {
@@ -2212,7 +3137,7 @@
   },
   {
     "Stats": [
-      19898
+      19946
     ],
     "Sections": [
       {
@@ -2243,7 +3168,7 @@
   },
   {
     "Stats": [
-      19947
+      19995
     ],
     "Sections": [
       {
@@ -2262,7 +3187,7 @@
   },
   {
     "Stats": [
-      18231
+      18273
     ],
     "Sections": [
       {
@@ -2281,7 +3206,7 @@
   },
   {
     "Stats": [
-      20912
+      20960
     ],
     "Sections": [
       {
@@ -2312,7 +3237,7 @@
   },
   {
     "Stats": [
-      22409
+      22468
     ],
     "Sections": [
       {
@@ -2331,7 +3256,7 @@
   },
   {
     "Stats": [
-      19948
+      19996
     ],
     "Sections": [
       {
@@ -2350,7 +3275,7 @@
   },
   {
     "Stats": [
-      19868
+      19916
     ],
     "Sections": [
       {
@@ -2381,7 +3306,7 @@
   },
   {
     "Stats": [
-      20885
+      20933
     ],
     "Sections": [
       {
@@ -2400,7 +3325,7 @@
   },
   {
     "Stats": [
-      19869
+      19917
     ],
     "Sections": [
       {
@@ -2419,7 +3344,7 @@
   },
   {
     "Stats": [
-      14225
+      14260
     ],
     "Sections": [
       {
@@ -2450,7 +3375,7 @@
   },
   {
     "Stats": [
-      19861
+      19909
     ],
     "Sections": [
       {
@@ -2469,7 +3394,7 @@
   },
   {
     "Stats": [
-      20183
+      20231
     ],
     "Sections": [
       {
@@ -2488,7 +3413,7 @@
   },
   {
     "Stats": [
-      19863
+      19911
     ],
     "Sections": [
       {
@@ -2507,7 +3432,7 @@
   },
   {
     "Stats": [
-      16009
+      16049
     ],
     "Sections": [
       {
@@ -2526,7 +3451,7 @@
   },
   {
     "Stats": [
-      15954
+      15994
     ],
     "Sections": [
       {
@@ -2545,7 +3470,7 @@
   },
   {
     "Stats": [
-      5858
+      5869
     ],
     "Sections": [
       {
@@ -2576,7 +3501,7 @@
   },
   {
     "Stats": [
-      22480
+      22539
     ],
     "Sections": [
       {
@@ -2607,7 +3532,7 @@
   },
   {
     "Stats": [
-      13914
+      13949
     ],
     "Sections": [
       {
@@ -2638,7 +3563,7 @@
   },
   {
     "Stats": [
-      19891
+      19939
     ],
     "Sections": [
       {
@@ -2657,26 +3582,7 @@
   },
   {
     "Stats": [
-      19892
-    ],
-    "Sections": [
-      {
-        "StatRanges": [
-          {
-            "Item1": -2147483648,
-            "Item2": 2147483647
-          }
-        ],
-        "StatConversionTypes": [
-          "NoFunction"
-        ],
-        "String": "[DNT] Legion Monsters have {0}% increased chance to have Rewards"
-      }
-    ]
-  },
-  {
-    "Stats": [
-      19958
+      20006
     ],
     "Sections": [
       {
@@ -2695,7 +3601,7 @@
   },
   {
     "Stats": [
-      22321
+      22380
     ],
     "Sections": [
       {
@@ -2726,7 +3632,7 @@
   },
   {
     "Stats": [
-      20560
+      20608
     ],
     "Sections": [
       {
@@ -2757,7 +3663,7 @@
   },
   {
     "Stats": [
-      8874
+      8891
     ],
     "Sections": [
       {
@@ -2776,7 +3682,7 @@
   },
   {
     "Stats": [
-      20641
+      20689
     ],
     "Sections": [
       {
@@ -2807,7 +3713,7 @@
   },
   {
     "Stats": [
-      13863
+      13898
     ],
     "Sections": [
       {
@@ -2838,7 +3744,7 @@
   },
   {
     "Stats": [
-      22317
+      22376
     ],
     "Sections": [
       {
@@ -2869,7 +3775,7 @@
   },
   {
     "Stats": [
-      22408
+      22467
     ],
     "Sections": [
       {
@@ -2900,7 +3806,7 @@
   },
   {
     "Stats": [
-      20855
+      20903
     ],
     "Sections": [
       {
@@ -2931,7 +3837,7 @@
   },
   {
     "Stats": [
-      20861
+      20909
     ],
     "Sections": [
       {
@@ -2962,7 +3868,7 @@
   },
   {
     "Stats": [
-      9983
+      10000
     ],
     "Sections": [
       {
@@ -2993,7 +3899,7 @@
   },
   {
     "Stats": [
-      9982
+      9999
     ],
     "Sections": [
       {
@@ -3024,7 +3930,7 @@
   },
   {
     "Stats": [
-      20896
+      20944
     ],
     "Sections": [
       {
@@ -3055,7 +3961,7 @@
   },
   {
     "Stats": [
-      22333
+      22392
     ],
     "Sections": [
       {
@@ -3074,7 +3980,7 @@
   },
   {
     "Stats": [
-      22337
+      22396
     ],
     "Sections": [
       {
@@ -3087,13 +3993,13 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "[DNT] Players in Area have Soul Eater"
+        "String": "Players in Area have [SoulEater|Soul Eater]"
       }
     ]
   },
   {
     "Stats": [
-      20230
+      20278
     ],
     "Sections": [
       {
@@ -3124,7 +4030,7 @@
   },
   {
     "Stats": [
-      20230
+      20278
     ],
     "Sections": [
       {
@@ -3143,7 +4049,7 @@
   },
   {
     "Stats": [
-      20231
+      20279
     ],
     "Sections": [
       {
@@ -3162,7 +4068,7 @@
   },
   {
     "Stats": [
-      18241
+      18283
     ],
     "Sections": [
       {
@@ -3181,7 +4087,7 @@
   },
   {
     "Stats": [
-      19889
+      19937
     ],
     "Sections": [
       {
@@ -3212,7 +4118,7 @@
   },
   {
     "Stats": [
-      20633
+      20681
     ],
     "Sections": [
       {
@@ -3231,7 +4137,7 @@
   },
   {
     "Stats": [
-      13844
+      13879
     ],
     "Sections": [
       {
@@ -3262,7 +4168,7 @@
   },
   {
     "Stats": [
-      19856
+      19904
     ],
     "Sections": [
       {
@@ -3281,7 +4187,7 @@
   },
   {
     "Stats": [
-      20228
+      20276
     ],
     "Sections": [
       {
@@ -3300,7 +4206,7 @@
   },
   {
     "Stats": [
-      20840
+      20888
     ],
     "Sections": [
       {
@@ -3319,7 +4225,7 @@
   },
   {
     "Stats": [
-      14220
+      14255
     ],
     "Sections": [
       {
@@ -3350,7 +4256,7 @@
   },
   {
     "Stats": [
-      15937
+      15977
     ],
     "Sections": [
       {
@@ -3381,7 +4287,7 @@
   },
   {
     "Stats": [
-      19860
+      19908
     ],
     "Sections": [
       {
@@ -3412,7 +4318,7 @@
   },
   {
     "Stats": [
-      22481
+      22540
     ],
     "Sections": [
       {
@@ -3443,7 +4349,7 @@
   },
   {
     "Stats": [
-      19853
+      19901
     ],
     "Sections": [
       {
@@ -3474,7 +4380,7 @@
   },
   {
     "Stats": [
-      13920
+      13955
     ],
     "Sections": [
       {
@@ -3505,7 +4411,7 @@
   },
   {
     "Stats": [
-      22320
+      22379
     ],
     "Sections": [
       {
@@ -3536,7 +4442,7 @@
   },
   {
     "Stats": [
-      20561
+      20609
     ],
     "Sections": [
       {
@@ -3567,7 +4473,7 @@
   },
   {
     "Stats": [
-      19941
+      19989
     ],
     "Sections": [
       {
@@ -3598,7 +4504,7 @@
   },
   {
     "Stats": [
-      19858
+      19906
     ],
     "Sections": [
       {
@@ -3617,7 +4523,7 @@
   },
   {
     "Stats": [
-      19857
+      19905
     ],
     "Sections": [
       {
@@ -3636,7 +4542,7 @@
   },
   {
     "Stats": [
-      13693
+      13720
     ],
     "Sections": [
       {
@@ -3655,7 +4561,7 @@
   },
   {
     "Stats": [
-      19854
+      19902
     ],
     "Sections": [
       {
@@ -3674,7 +4580,7 @@
   },
   {
     "Stats": [
-      19855
+      19903
     ],
     "Sections": [
       {
@@ -3693,7 +4599,7 @@
   },
   {
     "Stats": [
-      19430
+      19474
     ],
     "Sections": [
       {
@@ -3704,7 +4610,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Conqueror Maps"
       }
@@ -3712,7 +4618,7 @@
   },
   {
     "Stats": [
-      19429
+      19473
     ],
     "Sections": [
       {
@@ -3723,7 +4629,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Elder Guardian Maps"
       }
@@ -3731,7 +4637,7 @@
   },
   {
     "Stats": [
-      19440
+      19484
     ],
     "Sections": [
       {
@@ -3742,7 +4648,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Maven Invitations"
       }
@@ -3750,7 +4656,7 @@
   },
   {
     "Stats": [
-      19441
+      19485
     ],
     "Sections": [
       {
@@ -3761,7 +4667,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Atlas Memories"
       }
@@ -3769,7 +4675,7 @@
   },
   {
     "Stats": [
-      19439
+      19483
     ],
     "Sections": [
       {
@@ -3780,7 +4686,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Scarabs"
       }
@@ -3788,7 +4694,7 @@
   },
   {
     "Stats": [
-      19428
+      19472
     ],
     "Sections": [
       {
@@ -3799,7 +4705,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Shaper Guardian Maps"
       }
@@ -3807,7 +4713,7 @@
   },
   {
     "Stats": [
-      19431
+      19475
     ],
     "Sections": [
       {
@@ -3818,7 +4724,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% Chance to convert Maps to Unique Maps"
       }
@@ -3826,7 +4732,7 @@
   },
   {
     "Stats": [
-      19865
+      19913
     ],
     "Sections": [
       {
@@ -3857,7 +4763,7 @@
   },
   {
     "Stats": [
-      15647
+      15687
     ],
     "Sections": [
       {
@@ -3868,7 +4774,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByTen1dpIfRequired"
+          "DivideByOneHundred2dpIfRequired"
         ],
         "String": "Tier 1-15 Maps found have {0}% chance to be 1 tier higher"
       },
@@ -3888,7 +4794,7 @@
   },
   {
     "Stats": [
-      22484
+      22543
     ],
     "Sections": [
       {
@@ -3919,7 +4825,7 @@
   },
   {
     "Stats": [
-      19874
+      19922
     ],
     "Sections": [
       {
@@ -3938,7 +4844,7 @@
   },
   {
     "Stats": [
-      19875
+      19923
     ],
     "Sections": [
       {
@@ -3957,7 +4863,7 @@
   },
   {
     "Stats": [
-      20882
+      20930
     ],
     "Sections": [
       {
@@ -3976,7 +4882,7 @@
   },
   {
     "Stats": [
-      19884
+      19932
     ],
     "Sections": [
       {
@@ -3995,7 +4901,7 @@
   },
   {
     "Stats": [
-      19882
+      19930
     ],
     "Sections": [
       {
@@ -4014,7 +4920,7 @@
   },
   {
     "Stats": [
-      19883
+      19931
     ],
     "Sections": [
       {
@@ -4033,7 +4939,7 @@
   },
   {
     "Stats": [
-      19852
+      19900
     ],
     "Sections": [
       {
@@ -4064,7 +4970,7 @@
   },
   {
     "Stats": [
-      20645
+      20693
     ],
     "Sections": [
       {
@@ -4095,7 +5001,7 @@
   },
   {
     "Stats": [
-      19893
+      19941
     ],
     "Sections": [
       {
@@ -4126,7 +5032,7 @@
   },
   {
     "Stats": [
-      20644
+      20692
     ],
     "Sections": [
       {
@@ -4157,7 +5063,7 @@
   },
   {
     "Stats": [
-      20744
+      20792
     ],
     "Sections": [
       {
@@ -4188,7 +5094,7 @@
   },
   {
     "Stats": [
-      20746
+      20794
     ],
     "Sections": [
       {
@@ -4199,7 +5105,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% increased Rarity of Items from Unique Bosses per 1% Map Pack Size"
       },
@@ -4211,7 +5117,7 @@
           }
         ],
         "StatConversionTypes": [
-          "DivideByOneHundred2dpIfRequired"
+          "NegateAndDouble"
         ],
         "String": "{0}% reduced Rarity of Items from Unique Bosses per 1% Map Pack Size"
       }
@@ -4219,7 +5125,7 @@
   },
   {
     "Stats": [
-      20745
+      20793
     ],
     "Sections": [
       {
@@ -4250,7 +5156,7 @@
   },
   {
     "Stats": [
-      22492
+      22551
     ],
     "Sections": [
       {
@@ -4269,7 +5175,7 @@
   },
   {
     "Stats": [
-      13845
+      13880
     ],
     "Sections": [
       {
@@ -4300,7 +5206,7 @@
   },
   {
     "Stats": [
-      22205
+      22260
     ],
     "Sections": [
       {
@@ -4319,7 +5225,7 @@
   },
   {
     "Stats": [
-      15951
+      15991
     ],
     "Sections": [
       {
@@ -4338,7 +5244,7 @@
   },
   {
     "Stats": [
-      15953
+      15993
     ],
     "Sections": [
       {
@@ -4357,7 +5263,7 @@
   },
   {
     "Stats": [
-      22478
+      22537
     ],
     "Sections": [
       {
@@ -4376,7 +5282,7 @@
   },
   {
     "Stats": [
-      21136
+      21184
     ],
     "Sections": [
       {
@@ -4395,7 +5301,7 @@
   },
   {
     "Stats": [
-      20786
+      20834
     ],
     "Sections": [
       {
@@ -4426,7 +5332,7 @@
   },
   {
     "Stats": [
-      20820
+      20868
     ],
     "Sections": [
       {
