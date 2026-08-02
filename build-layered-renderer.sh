@@ -22,6 +22,10 @@ run_dotnet() {
 run_dotnet restore "$PROJECT"
 run_dotnet build "$PROJECT" -c Release --no-restore
 
+HELPER_SOURCE="$HERE/renderer-src/x11-input-shape-helper.c"
+HELPER_OUTPUT="$HERE/renderer-src/exileapi-x11-input-shape"
+cc -Wall -Wextra -Werror -O2 "$HELPER_SOURCE" -o "$HELPER_OUTPUT" $(pkg-config --cflags --libs x11 xext)
+
 OUTPUT="$HERE/renderer-src/ClickableTransparentOverlay/ClickableTransparentOverlay/bin/Release/net10.0-windows/ClickableTransparentOverlay.dll"
 [[ -f "$OUTPUT" ]] || { echo "Build-Ausgabe fehlt: $OUTPUT" >&2; exit 1; }
 echo "Renderer gebaut: $OUTPUT"

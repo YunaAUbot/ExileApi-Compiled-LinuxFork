@@ -1150,6 +1150,10 @@
         [DllImport(LibraryName)]
         public static extern IntPtr SetFocus(IntPtr hWnd);
 
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport(LibraryName)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
         [DllImport(LibraryName)]
         public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 

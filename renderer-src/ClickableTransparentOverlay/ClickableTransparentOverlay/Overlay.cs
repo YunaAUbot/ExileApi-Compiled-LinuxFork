@@ -29,6 +29,7 @@
         private readonly string title;
         private readonly Format format;
         private readonly BackendPreference backendPreference;
+        private readonly int layeredFrameIntervalMs;
 
         private WNDCLASSEX wndClass;
         private Win32Window window;
@@ -38,6 +39,7 @@
         private ID3D11Texture2D backBuffer;
         private ID3D11RenderTargetView renderView;
         private LayeredWindowPresenter layeredPresenter;
+        private X11InputShapeFallback x11InputShapeFallback;
         private bool useLayeredBackend;
         private readonly Stopwatch performanceClock = Stopwatch.StartNew();
         private long renderedFrames;
@@ -105,9 +107,10 @@
             this.cancellationTokenSource = new();
             this.format = Format.R8G8B8A8_UNorm;
             this.backendPreference = ParseBackendPreference(Environment.GetEnvironmentVariable("EXILEAPI_OVERLAY_BACKEND"));
+            this.layeredFrameIntervalMs = ParseLayeredFrameInterval(Environment.GetEnvironmentVariable("EXILEAPI_OVERLAY_FPS"));
             this.loadedTexturesPtrs = new();
             this.fontUpdates = new();
-            LogRenderer($"configured backend={this.backendPreference}");
+            LogRenderer($"configured backend={this.backendPreference} layered-fps={1000.0 / this.layeredFrameIntervalMs:F1}");
             if (DPIAware)
             {
                 User32.SetProcessDPIAware();
@@ -515,7 +518,9 @@
                 // Decide after plugins have emitted this frame's ImGui UI.
                 // Draw-list-only overlays such as NinjaPrice use NoInputs and
                 // therefore remain pass-through over ground item labels.
-                Utils.SetOverlayClickable(this.window.Handle, this.inputhandler.WantsMouseCapture());
+                var wantsMouseCapture = this.inputhandler.WantsMouseCapture();
+                Utils.SetOverlayClickable(this.window.Handle, wantsMouseCapture);
+                this.x11InputShapeFallback?.SetInteractive(wantsMouseCapture);
                 var activeView = this.useLayeredBackend ? this.layeredPresenter.RenderTargetView : this.renderView;
                 this.deviceContext.OMSetRenderTargets(activeView);
                 this.deviceContext.ClearRenderTargetView(activeView, clearColor);
@@ -534,7 +539,7 @@
                     }
                     if (VSync)
                     {
-                        var remaining = 33 - (int)stopwatch.ElapsedMilliseconds;
+                        var remaining = this.layeredFrameIntervalMs - (int)stopwatch.ElapsedMilliseconds;
                         if (remaining > 0) Thread.Sleep(remaining);
                     }
                 }
@@ -702,6 +707,8 @@
                 // forcing the primary monitor's dimensions breaks multi-monitor
                 // and non-native-resolution configurations.
                 Utils.InitLayeredInput(this.window.Handle);
+                this.x11InputShapeFallback = X11InputShapeFallback.TryCreate();
+                this.x11InputShapeFallback?.SetInteractive(false);
             }
             else Utils.InitTransparency(this.window.Handle);
         }
@@ -744,6 +751,16 @@
             "layered" => BackendPreference.Layered,
             _ => BackendPreference.Auto
         };
+
+        private static int ParseLayeredFrameInterval(string value)
+        {
+            // The layered backend reads a full BGRA surface back to system
+            // memory each frame. Keep the established 30 FPS default; callers
+            // can lower it explicitly for diagnostics.
+            if (int.TryParse(value, out var fps))
+                return 1000 / Math.Clamp(fps, 5, 60);
+            return 1000 / 30;
+        }
 
         private void SwitchToLegacyBackend()
         {

@@ -99,10 +99,15 @@
                 if (WantClickable)
                 {
                     User32.SetWindowLong(handle, (int)WindowLongParam.GWL_EXSTYLE, (uint)Clickable);
+                    // Match the reference implementation: an interactive
+                    // ImGui menu must receive keyboard focus after switching
+                    // out of pass-through mode.
+                    User32.SetFocus(handle);
                 }
                 else
                 {
                     User32.SetWindowLong(handle, (int)WindowLongParam.GWL_EXSTYLE, (uint)NotClickable);
+                    RestoreGameFocus(handle);
                 }
 
                 IsClickable = WantClickable;
@@ -136,6 +141,18 @@
             const uint SWP_SHOWWINDOW = 0x0040;
             User32.SetWindowPos(handle, new IntPtr(-1), 0, 0, 0, 0,
                 SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+        }
+
+        private static void RestoreGameFocus(IntPtr overlay)
+        {
+            // X Shape pass-through does not create a native mouse activation
+            // event. Without explicitly returning focus, Wine can keep the
+            // F12 overlay active and PoE then processes plugin-generated
+            // clicks with its previous cursor position.
+            var game = User32.FindWindow(null, "Path of Exile");
+            if (game == IntPtr.Zero || game == overlay) return;
+            User32.SetForegroundWindow(game);
+            User32.SetFocus(game);
         }
     }
 }
