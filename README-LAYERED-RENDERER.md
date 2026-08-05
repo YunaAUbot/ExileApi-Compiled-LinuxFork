@@ -32,8 +32,12 @@ the overlay above KDE/XWayland fullscreen PoE without resizing it to the
 primary monitor. The overlay always retains the client rectangle provided by
 ExileCore, including on multi-monitor desktops.
 
-The backend is selected with `EXILEAPI_OVERLAY_BACKEND`:
+The default backend is the native GLX/X11 compositor (`gpu-probe`). It uses an
+ARGB X11 surface, a shaped input region and compact ImGui draw-list transport;
+it does not copy a monitor-sized BGRA image every frame. The backend may be
+overridden with `EXILEAPI_OVERLAY_BACKEND`:
 
+- `gpu-probe`: native default for KDE Plasma/XWayland and Proton.
 - `layered`: require the new renderer and surface errors immediately.
 - `auto`: try layered rendering and switch to the old swap-chain backend if
   layered initialization or presentation fails.
@@ -63,7 +67,7 @@ also functional and can be tested explicitly:
 PROTON_USE_WINED3D=0 ./run-with-poe-proton.sh
 ```
 
-For a strict failure instead of automatic fallback:
+To explicitly select the older layered compatibility renderer:
 
 ```bash
 EXILEAPI_OVERLAY_BACKEND=layered ./run-with-poe-proton.sh

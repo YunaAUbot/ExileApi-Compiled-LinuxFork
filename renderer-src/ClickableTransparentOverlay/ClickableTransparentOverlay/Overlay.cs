@@ -30,6 +30,7 @@
         private readonly Format format;
         private readonly BackendPreference backendPreference;
         private readonly int layeredFrameIntervalMs;
+        private readonly bool nativeGpuForceInput;
 
         private WNDCLASSEX wndClass;
         private Win32Window window;
@@ -41,6 +42,8 @@
         private LayeredWindowPresenter layeredPresenter;
         private X11InputShapeFallback x11InputShapeFallback;
         private bool useLayeredBackend;
+        private bool nativeGpuStarted;
+        private bool nativeGpuStartAttempted;
         private readonly Stopwatch performanceClock = Stopwatch.StartNew();
         private long renderedFrames;
 
@@ -58,7 +61,7 @@
         private readonly ConcurrentQueue<(FontLoadDelegate Update, TaskCompletionSource Completion)> fontUpdates;
         private readonly TaskCompletionSource shutdownCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        private enum BackendPreference { Auto, Layered, Legacy }
+        private enum BackendPreference { Auto, Layered, Legacy, NativeGpuProbe }
 
         #region Constructors
 
@@ -108,6 +111,7 @@
             this.format = Format.R8G8B8A8_UNorm;
             this.backendPreference = ParseBackendPreference(Environment.GetEnvironmentVariable("EXILEAPI_OVERLAY_BACKEND"));
             this.layeredFrameIntervalMs = ParseLayeredFrameInterval(Environment.GetEnvironmentVariable("EXILEAPI_OVERLAY_FPS"));
+            this.nativeGpuForceInput = string.Equals(Environment.GetEnvironmentVariable("EXILEAPI_GPU_FORCE_INPUT"), "1", StringComparison.Ordinal);
             this.loadedTexturesPtrs = new();
             this.fontUpdates = new();
             LogRenderer($"configured backend={this.backendPreference} layered-fps={1000.0 / this.layeredFrameIntervalMs:F1}");
@@ -510,21 +514,75 @@
             var clearColor = new Color4(0.0f);
             while (!token.IsCancellationRequested)
             {
+                if (this.backendPreference == BackendPreference.NativeGpuProbe) NativeGpuProbe.Pulse(this.window.Dimensions);
                 deltaTime = stopwatch.ElapsedTicks / (float)Stopwatch.Frequency;
                 stopwatch.Restart();
                 this.window.PumpEvents();
-                this.inputhandler.Update();
+                if (this.nativeGpuStarted) NativeGpuProbe.PollInput(this.inputhandler);
+                // PostInitialized asks ExileCore to size us to PoE, but Wine
+                // delivers that resize after the first pump.  Do not turn the
+                // temporary 800x600 construction window into the native
+                // surface; wait until its real client rectangle is known.
+                if (this.backendPreference == BackendPreference.NativeGpuProbe && !this.nativeGpuStartAttempted &&
+                    (this.window.Dimensions.Width != 800 || this.window.Dimensions.Height != 600))
+                {
+                    this.nativeGpuStartAttempted = true;
+                    if (NativeGpuProbe.TryStart(this.window.Dimensions))
+                    {
+                        this.nativeGpuStarted = true;
+                        User32.ShowWindow(this.window.Handle, ShowWindowCommand.Hide);
+                        LogRenderer($"native-gpu-probe started at {this.window.Dimensions.X},{this.window.Dimensions.Y} {this.window.Dimensions.Width}x{this.window.Dimensions.Height}; Wine HWND hidden");
+                    }
+                    else LogRenderer("native-gpu-probe unavailable; Wine HWND remains visible");
+                }
+                // In borderless fullscreen Wine updates Dimensions after the
+                // HWND was hidden, but no longer delivers the corresponding
+                // WM_SIZE to our window procedure.  The native GLX surface
+                // already follows Dimensions through the heartbeat; make
+                // ImGui follow the same authoritative size so it does not
+                // continue producing only the old 1044-pixel-high draw data.
+                if (this.nativeGpuStarted)
+                {
+                    var displaySize = ImGui.GetIO().DisplaySize;
+                    if ((int)displaySize.X != this.window.Dimensions.Width ||
+                        (int)displaySize.Y != this.window.Dimensions.Height)
+                    {
+                        this.renderer.Resize(this.window.Dimensions.Width, this.window.Dimensions.Height);
+                        LogRenderer($"native-gpu ImGui resize synchronized to {this.window.Dimensions.Width}x{this.window.Dimensions.Height}");
+                    }
+                }
+                // The native compositor receives real X11 ButtonPress/ButtonRelease
+                // events for its shaped ImGui regions and forwards them through
+                // NativeGpuProbe.PollInput above. Do not additionally poll the
+                // global Wine key state here: a short click can start and end
+                // between two frames, which produces an incomplete ImGui click.
+                this.inputhandler.Update(this.nativeGpuStarted);
                 this.renderer.Update(deltaTime, () => { Render(); });
                 // Decide after plugins have emitted this frame's ImGui UI.
                 // Draw-list-only overlays such as NinjaPrice use NoInputs and
                 // therefore remain pass-through over ground item labels.
-                var wantsMouseCapture = this.inputhandler.WantsMouseCapture();
-                Utils.SetOverlayClickable(this.window.Handle, wantsMouseCapture);
-                this.x11InputShapeFallback?.SetInteractive(wantsMouseCapture);
-                var activeView = this.useLayeredBackend ? this.layeredPresenter.RenderTargetView : this.renderView;
-                this.deviceContext.OMSetRenderTargets(activeView);
-                this.deviceContext.ClearRenderTargetView(activeView, clearColor);
-                this.renderer.Render();
+                var wantsMouseCapture = this.inputhandler.WantsMouseCapture() ||
+                    (this.backendPreference == BackendPreference.NativeGpuProbe && this.nativeGpuForceInput);
+                // In the native-GPU path the Wine HWND is hidden. Its
+                // WS_EX_TRANSPARENT/focus toggles cannot route input to the
+                // visible GLX surface and can steal focus from PoE. The GLX
+                // helper owns the precise X11 input shape instead.
+                if (this.backendPreference != BackendPreference.NativeGpuProbe)
+                {
+                    Utils.SetOverlayClickable(this.window.Handle, wantsMouseCapture);
+                    this.x11InputShapeFallback?.SetInteractive(wantsMouseCapture);
+                }
+                if (this.backendPreference == BackendPreference.NativeGpuProbe && this.nativeGpuStarted)
+                {
+                    NativeGpuProbe.Present(ImGui.GetDrawData(), this.renderer);
+                }
+                else
+                {
+                    var activeView = this.useLayeredBackend ? this.layeredPresenter.RenderTargetView : this.renderView;
+                    this.deviceContext.OMSetRenderTargets(activeView);
+                    this.deviceContext.ClearRenderTargetView(activeView, clearColor);
+                    this.renderer.Render();
+                }
                 if (this.useLayeredBackend)
                 {
                     try
@@ -543,6 +601,10 @@
                         if (remaining > 0) Thread.Sleep(remaining);
                     }
                 }
+                else if (this.backendPreference == BackendPreference.NativeGpuProbe)
+                {
+                    if (VSync) Thread.Sleep(1);
+                }
                 else if (VSync)
                 {
                     this.swapChain.Present(1, PresentFlags.None); // Present with vsync
@@ -558,10 +620,17 @@
                 if (this.renderedFrames % 300 == 0)
                 {
                     var seconds = performanceClock.Elapsed.TotalSeconds;
-                    LogRenderer($"frames={this.renderedFrames} average-fps={this.renderedFrames / seconds:F1} size={this.window.Dimensions.Width}x{this.window.Dimensions.Height} backend={(this.useLayeredBackend ? "layered" : "legacy")}");
+                    var draw = this.renderer.GetNativeFrameStats();
+                    // ImDrawVert is 20 bytes and the configured ImDrawIdx is
+                    // UInt16. This quantifies the eventual native IPC payload
+                    // against the current full-frame BGRA copy.
+                    var geometryBytes = draw.Vertices * 20L + draw.Indices * 2L;
+                    var nativeSize = NativeGpuFrameProtocol.LastDisplaySize;
+                    LogRenderer($"frames={this.renderedFrames} average-fps={this.renderedFrames / seconds:F1} size={this.window.Dimensions.Width}x{this.window.Dimensions.Height} backend={(this.useLayeredBackend ? "layered" : "legacy")} imgui-display={nativeSize.Width:F0}x{nativeSize.Height:F0} imgui-vtx={draw.Vertices} idx={draw.Indices} cmd={draw.Commands} geometry-bytes={geometryBytes}");
                 }
             }
             this.OnClosed().GetAwaiter().GetResult();
+            NativeGpuProbe.Stop();
             this.shutdownCompletion.TrySetResult();
         }
 
@@ -673,7 +742,7 @@
                 User32.SetWindowOwner(this.window.Handle, (int)WindowLongParam.GWLP_HWNDPARENT, targetWindow);
                 LogRenderer($"attached overlay owner hwnd=0x{targetWindow:x}");
             }
-            this.useLayeredBackend = this.backendPreference != BackendPreference.Legacy;
+            this.useLayeredBackend = this.backendPreference != BackendPreference.Legacy && this.backendPreference != BackendPreference.NativeGpuProbe;
             if (this.useLayeredBackend)
             {
                 try
@@ -700,6 +769,9 @@
             // panels), which puts the overlay below an EWMH fullscreen PoE
             // window. Preserve the requested game-sized rectangle instead.
             User32.ShowWindow(this.window.Handle, ShowWindowCommand.Show);
+            // The first real client-size notification arrives only when the
+            // message loop pumps events. Starting a native window here would
+            // capture the constructor's 800x600 placeholder instead.
             if (this.useLayeredBackend)
             {
                 // Keep exactly the rectangle requested by ExileCore. The owner
@@ -749,7 +821,12 @@
         {
             "legacy" => BackendPreference.Legacy,
             "layered" => BackendPreference.Layered,
-            _ => BackendPreference.Auto
+            "gpu-probe" => BackendPreference.NativeGpuProbe,
+            // The native GLX/X11 compositor is the supported Linux default.
+            // Keep auto as an explicit compatibility choice rather than
+            // silently selecting the old full-frame layered presenter.
+            "auto" => BackendPreference.Auto,
+            _ => BackendPreference.NativeGpuProbe
         };
 
         private static int ParseLayeredFrameInterval(string value)
@@ -787,7 +864,16 @@
                 if ((WindowMessage)msg == WindowMessage.NcHitTest && !Utils.IsClickable)
                     return new IntPtr(-1); // HTTRANSPARENT
 
-                if (this.inputhandler.ProcessMessage((WindowMessage)msg, wParam, lParam) ||
+                var windowMessage = (WindowMessage)msg;
+                // With the native GLX compositor the Wine HWND is deliberately
+                // hidden and is no longer the visible input target. Wine can
+                // still emit focus transitions for that hidden host while a
+                // native X11 click is processed; forwarding those transitions
+                // resets ImGui's capture state mid-click. Keep keyboard
+                // messages (including F12), but ignore only host focus noise.
+                var ignoreNativeHostFocus = this.nativeGpuStarted &&
+                    (windowMessage == WindowMessage.SetFocus || windowMessage == WindowMessage.KillFocus);
+                if ((!ignoreNativeHostFocus && this.inputhandler.ProcessMessage(windowMessage, wParam, lParam)) ||
                     this.ProcessMessage((WindowMessage)msg, wParam, lParam))
                 {
                     return IntPtr.Zero;

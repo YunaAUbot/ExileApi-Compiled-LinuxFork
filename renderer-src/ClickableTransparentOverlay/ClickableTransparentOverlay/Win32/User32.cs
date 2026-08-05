@@ -1134,6 +1134,10 @@
         [DllImport(LibraryName, ExactSpelling = true)]
         public static extern bool ShowWindow(IntPtr hWnd, ShowWindowCommand nCmdShow);
 
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport(LibraryName, ExactSpelling = true)]
+        public static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint colorKey, byte alpha, uint flags);
+
         [DllImport(LibraryName)]
         public static extern IntPtr SetCursor(IntPtr handle);
 
@@ -1146,6 +1150,9 @@
 
         [DllImport(LibraryName)]
         public static extern short GetKeyState(VK nVirtKey);
+
+        [DllImport(LibraryName)]
+        public static extern short GetAsyncKeyState(VK nVirtKey);
 
         [DllImport(LibraryName)]
         public static extern IntPtr SetFocus(IntPtr hWnd);

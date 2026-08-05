@@ -8,13 +8,21 @@
     {
         readonly IntPtr hwnd;
         ImGuiMouseCursor lastCursor;
+        // Once the visible renderer is the native GLX window, Wine's hidden
+        // HWND no longer has a meaningful ScreenToClient mouse coordinate.
+        // Retain the last native coordinate until the next X11 update instead
+        // of falling back to the hidden HWND on every idle frame.
+        private bool hasNativeMousePosition;
+        private float nativeMouseX;
+        private float nativeMouseY;
+        private readonly bool[] globalMouseButtons = new bool[3];
 
         public ImGuiInputHandler(IntPtr hwnd)
         {
             this.hwnd = hwnd;
         }
 
-        public bool Update()
+        public bool Update(bool preserveGlobalButtons = false)
         {
             var io = ImGui.GetIO();
             UpdateMousePosition(io, hwnd);
@@ -29,7 +37,7 @@
                 UpdateMouseCursor(io, mouseCursor);
             }
 
-            if (!io.WantCaptureMouse && ImGui.IsAnyMouseDown())
+            if (!preserveGlobalButtons && !io.WantCaptureMouse && ImGui.IsAnyMouseDown())
             {
                 // workaround: where overlay gets stuck in a non-clickable mode forever.
                 for (var i = 0; i < 5; i++)
@@ -47,6 +55,41 @@
         /// previous frame's capture state.
         /// </summary>
         public bool WantsMouseCapture() => ImGui.GetIO().WantCaptureMouse;
+
+        internal void AddNativeMouseButton(int button, bool down)
+        {
+            if (button >= 0 && button < 5) ImGui.GetIO().AddMouseButtonEvent(button, down);
+        }
+
+        internal void AddNativeMouseWheel(float horizontal, float vertical)
+        {
+            ImGui.GetIO().AddMouseWheelEvent(horizontal, vertical);
+        }
+
+        internal void AddNativeMousePosition(float x, float y)
+        {
+            this.hasNativeMousePosition = true;
+            this.nativeMouseX = x;
+            this.nativeMouseY = y;
+        }
+
+        // The native GPU surface deliberately has an empty X Shape input
+        // region.  Poll button edges so ImGui still observes complete
+        // down/up pairs while PoE receives the original click normally.
+        internal void UpdateGlobalMouseButtons()
+        {
+            var io = ImGui.GetIO();
+            var keys = new[] { VK.LBUTTON, VK.RBUTTON, VK.MBUTTON };
+            for (var button = 0; button < keys.Length; button++)
+            {
+                var down = (User32.GetAsyncKeyState(keys[button]) & 0x8000) != 0;
+                if (down != this.globalMouseButtons[button])
+                {
+                    this.globalMouseButtons[button] = down;
+                    io.AddMouseButtonEvent(button, down);
+                }
+            }
+        }
 
         public bool ProcessMessage(WindowMessage msg, UIntPtr wParam, IntPtr lParam)
         {
@@ -124,8 +167,13 @@
             return false;
         }
 
-        private static void UpdateMousePosition(ImGuiIOPtr io, IntPtr handleWindow)
+        private void UpdateMousePosition(ImGuiIOPtr io, IntPtr handleWindow)
         {
+            if (this.hasNativeMousePosition)
+            {
+                io.AddMousePosEvent(this.nativeMouseX, this.nativeMouseY);
+                return;
+            }
             if (User32.GetCursorPos(out POINT pos) && User32.ScreenToClient(handleWindow, ref pos))
             {
                 io.AddMousePosEvent(pos.X, pos.Y);

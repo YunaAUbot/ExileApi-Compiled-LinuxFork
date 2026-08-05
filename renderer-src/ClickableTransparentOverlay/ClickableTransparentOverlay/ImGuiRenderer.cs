@@ -35,6 +35,27 @@
         ID3D11DepthStencilState depthStencilState;
         int vertexBufferSize = 5000, indexBufferSize = 10000;
         readonly Dictionary<IntPtr, ID3D11ShaderResourceView> textureResources = new();
+        private byte[] nativeFontPixels = Array.Empty<byte>();
+        private int nativeFontWidth;
+        private int nativeFontHeight;
+        private IntPtr nativeFontTextureId;
+
+        // The native GPU backend consumes ImGui's compact geometry, not a
+        // monitor-sized framebuffer. Keep these values available while its
+        // transport is brought up so we can verify the real IPC budget.
+        internal (int Vertices, int Indices, int Commands) GetNativeFrameStats()
+        {
+            var data = ImGui.GetDrawData();
+            var commands = 0;
+            for (var i = 0; i < data.CmdListsCount; i++) commands += data.CmdLists[i].CmdBuffer.Size;
+            return (data.TotalVtxCount, data.TotalIdxCount, commands);
+        }
+
+        // The D3D renderer normally releases ImGui's CPU font atlas after it
+        // uploads it. The native GL backend needs the identical atlas once to
+        // reproduce text without ever reading back a rendered framebuffer.
+        internal (byte[] Pixels, int Width, int Height, IntPtr TextureId) GetNativeFontAtlas() =>
+            (this.nativeFontPixels, this.nativeFontWidth, this.nativeFontHeight, this.nativeFontTextureId);
 
         public ImGuiRenderer(ID3D11Device device, ID3D11DeviceContext deviceContext, int width, int height)
         {
@@ -267,6 +288,10 @@
         {
             var io = ImGui.GetIO();
             io.Fonts.GetTexDataAsRGBA32(out byte* pixels, out var width, out var height);
+            this.nativeFontPixels = new byte[width * height * 4];
+            System.Runtime.InteropServices.Marshal.Copy((IntPtr)pixels, this.nativeFontPixels, 0, this.nativeFontPixels.Length);
+            this.nativeFontWidth = width;
+            this.nativeFontHeight = height;
             var texDesc = new Texture2DDescription(Format.R8G8B8A8_UNorm, (uint)width, (uint)height, 1, 1);
             var subResource = new SubresourceData(pixels, texDesc.Width * 4);
             using var texture = device.CreateTexture2D(texDesc, new[] { subResource });
@@ -276,7 +301,8 @@
                 Format.R8G8B8A8_UNorm,
                 0,
                 texDesc.MipLevels);
-            io.Fonts.SetTexID(RegisterTexture(device.CreateShaderResourceView(texture, resViewDesc)));
+            this.nativeFontTextureId = RegisterTexture(device.CreateShaderResourceView(texture, resViewDesc));
+            io.Fonts.SetTexID(this.nativeFontTextureId);
             io.Fonts.ClearTexData();
         }
 

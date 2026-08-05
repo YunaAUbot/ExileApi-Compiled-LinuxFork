@@ -6,6 +6,7 @@ ACTIVE="$HERE/ClickableTransparentOverlay.dll"
 ORIGINAL="$HERE/renderer-backup/ClickableTransparentOverlay.original-9.1.0.dll"
 REPLACEMENT="$HERE/renderer-src/ClickableTransparentOverlay/ClickableTransparentOverlay/bin/Release/net10.0-windows/ClickableTransparentOverlay.dll"
 INPUT_SHAPE_HELPER="$HERE/renderer-src/exileapi-x11-input-shape"
+GPU_PROBE_HELPER="$HERE/renderer-src/exileapi-gpu-overlay-probe"
 
 case "${1:-status}" in
   status)
@@ -17,6 +18,7 @@ case "${1:-status}" in
     [[ -f "$ORIGINAL" ]] || cp -a "$ACTIVE" "$ORIGINAL"
     cp -a "$REPLACEMENT" "$ACTIVE"
     [[ -x "$INPUT_SHAPE_HELPER" ]] && cp -a "$INPUT_SHAPE_HELPER" "$HERE/exileapi-x11-input-shape"
+    [[ -x "$GPU_PROBE_HELPER" ]] && cp -a "$GPU_PROBE_HELPER" "$HERE/exileapi-gpu-overlay-probe"
     echo "Layered-Renderer installiert."
     sha256sum "$ACTIVE"
     ;;

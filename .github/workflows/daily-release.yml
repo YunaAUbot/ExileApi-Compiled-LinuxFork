@@ -1,0 +1,61 @@
+name: Daily Linux release
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run after upstream synchronization; scheduled workflows use master.
+    - cron: '45 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-linux-release
+  cancel-in-progress: false
+
+jobs:
+  publish-if-changed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v5
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Skip an already released commit
+        id: released
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git tag --points-at HEAD | grep -q '^linux-build-'; then
+            echo 'already_released=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'already_released=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create source and runtime ZIP
+        if: steps.released.outputs.already_released != 'true'
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          short_sha=$(git rev-parse --short=12 HEAD)
+          tag="linux-build-$(date -u +%Y%m%d)-${short_sha}"
+          asset="ExileApi-Compiled-Linux-${tag}.zip"
+          # git archive deliberately packages the committed distribution only:
+          # no local configs, logs, caches, or user plugin worktrees.
+          git archive --format=zip --output "$asset" HEAD
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "asset=$asset" >> "$GITHUB_OUTPUT"
+
+      - name: Publish GitHub release
+        if: steps.released.outputs.already_released != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.package.outputs.tag }}" \
+            "${{ steps.package.outputs.asset }}" \
+            --target "$GITHUB_SHA" \
+            --title "Linux build ${{ steps.package.outputs.tag }}" \
+            --notes "Automatisches tägliches Paket für Commit $GITHUB_SHA."
