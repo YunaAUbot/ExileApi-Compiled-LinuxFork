@@ -4,12 +4,9 @@
 
 set -euo pipefail
 
-STEAM_ROOT="${STEAM_ROOT:-$HOME/.local/share/Steam}"
-POE_LIBRARY="${POE_LIBRARY:-/mnt/nvme_games1/SteamLibrary}"
-APP_ID=238960
 HUD_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 HUD_EXE="$HUD_DIR/Loader.exe"
-PROTON="${PROTON:-$STEAM_ROOT/compatibilitytools.d/GE-Proton10-34/proton}"
+source "$HUD_DIR/steam-proton-env.sh"
 # This affects only the HUD process. PoE, started separately by Steam, keeps DXVK.
 # WineD3D is slower but may correctly composite this application's transparent D3D11 overlay.
 PROTON_USE_WINED3D="${PROTON_USE_WINED3D:-1}"
@@ -21,7 +18,6 @@ EXILEAPI_GPU_FORCE_INPUT="${EXILEAPI_GPU_FORCE_INPUT:-0}"
 PREFIX="$POE_LIBRARY/steamapps/compatdata/$APP_ID/pfx"
 
 [[ -f "$HUD_EXE" ]] || { echo "Loader.exe nicht gefunden: $HUD_EXE" >&2; exit 1; }
-[[ -x "$PROTON" ]] || { echo "Proton-Runner nicht gefunden/ausführbar: $PROTON" >&2; exit 1; }
 [[ -d "$PREFIX" ]] || {
   echo "PoE-Proton-Prefix nicht gefunden: $PREFIX" >&2
   echo "Bitte Path of Exile einmal über Steam mit Proton starten und beenden." >&2

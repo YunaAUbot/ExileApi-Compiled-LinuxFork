@@ -2,10 +2,7 @@
 set -euo pipefail
 
 HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-STEAM_ROOT="${STEAM_ROOT:-$HOME/.local/share/Steam}"
-POE_LIBRARY="${POE_LIBRARY:-/mnt/nvme_games1/SteamLibrary}"
-APP_ID=238960
-PROTON="${PROTON:-$STEAM_ROOT/compatibilitytools.d/GE-Proton10-34/proton}"
+source "$HERE/steam-proton-env.sh"
 DOTNET="$POE_LIBRARY/steamapps/compatdata/$APP_ID/pfx/drive_c/Program Files/dotnet/dotnet.exe"
 # Proton maps the Linux filesystem below Z:. Derive this rather than hard-code
 # the checkout directory so a cloned fork can be built from any path.

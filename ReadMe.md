@@ -31,11 +31,13 @@ frame.
 
 6. Press <kbd>F12</kbd> in PoE to open or close the ExileAPI menu.
 
-The included script is configured for the local Steam library layout used by
-this fork. If yours differs, override paths for that command:
+The script automatically discovers the usual Steam roots, the library that
+contains PoE and an installed Proton runner. If auto-discovery cannot identify
+your layout, override paths for that command:
 
 ```bash
 POE_LIBRARY=/path/to/SteamLibrary \
+STEAM_ROOT=/path/to/Steam \
 PROTON=/path/to/your/proton \
 ./run-with-poe-proton.sh
 ```

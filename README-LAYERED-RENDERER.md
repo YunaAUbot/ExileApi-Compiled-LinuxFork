@@ -34,15 +34,12 @@ and synchronizes ImGui after Wine reports delayed borderless resizes.
 - For source builds only: a C compiler, `pkg-config`, X11/Xext/Xrender/OpenGL
   development packages, plus the Windows .NET SDK in the PoE Proton prefix.
 
-The default scripts assume:
-
-```text
-Steam library: /mnt/nvme_games1/SteamLibrary
-Steam app id:  238960
-Proton:        ~/.local/share/Steam/compatibilitytools.d/GE-Proton10-34/proton
-```
-
-Override `POE_LIBRARY`, `STEAM_ROOT` or `PROTON` when your installation differs.
+`steam-proton-env.sh` automatically looks for Steam in `~/.local/share/Steam`
+and `~/.steam/steam`, parses Steam's `libraryfolders.vdf` for the PoE library,
+then uses the exact compatibility tool recorded for PoE by Steam. Without that
+record, it selects the newest installed Proton runner it finds. Explicit values
+always win, so override `POE_LIBRARY`, `STEAM_ROOT`, `PROTON` or
+`EXILEAPI_APP_ID` when automatic discovery cannot identify your installation.
 
 ## Installation and start
 
