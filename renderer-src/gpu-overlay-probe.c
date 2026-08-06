@@ -2,6 +2,8 @@
 #include <GL/glx.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/keysym.h>
 #include <X11/extensions/Xrender.h>
 #include <X11/extensions/shape.h>
 #include <arpa/inet.h>
@@ -12,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -24,6 +27,8 @@
 #define FONT_MAGIC  0x31415445u /* ETA1, little endian */
 #define INPUT_MODE_MAGIC 0x31435345u
 #define MOUSE_INPUT_MAGIC 0x31494e45u
+#define KEY_INPUT_MAGIC 0x314b4e45u
+#define KEYBOARD_MODE_MAGIC 0x314b5345u
 static double now_seconds(void) { struct timespec v; clock_gettime(CLOCK_MONOTONIC, &v); return v.tv_sec + v.tv_nsec / 1e9; }
 static void trace_input(const char *event, int a, int b) { FILE *f=fopen("/tmp/exileapi-gpu-input.log","a"); if(f){fprintf(f,"%.3f %s %d %d\n",now_seconds(),event,a,b);fclose(f);} }
 static uint32_t u32(const unsigned char **p) { uint32_t v; memcpy(&v,*p,4); *p+=4; return v; }
@@ -53,6 +58,29 @@ static void send_mouse(int fd, int button, int down, int x, int y) {
     float point[2] = { (float)x, (float)y };
     memcpy(&msg[4], point, sizeof point);
     send(fd, msg, sizeof msg, MSG_DONTWAIT);
+}
+static uint32_t utf8_codepoint(const char *s, int length) {
+    const unsigned char *p=(const unsigned char*)s;
+    if(length<=0) return 0;
+    if(p[0]<0x80) return p[0];
+    if((p[0]&0xe0)==0xc0 && length>=2) return ((p[0]&0x1f)<<6)|(p[1]&0x3f);
+    if((p[0]&0xf0)==0xe0 && length>=3) return ((p[0]&0x0f)<<12)|((p[1]&0x3f)<<6)|(p[2]&0x3f);
+    if((p[0]&0xf8)==0xf0 && length>=4) return ((p[0]&0x07)<<18)|((p[1]&0x3f)<<12)|((p[2]&0x3f)<<6)|(p[3]&0x3f);
+    return 0;
+}
+static void send_key(int fd, KeySym key, int down, uint32_t codepoint) {
+    uint32_t msg[6] = { 20, KEY_INPUT_MAGIC, (uint32_t)key, (uint32_t)down, codepoint, 0 };
+    send(fd, msg, sizeof msg, MSG_DONTWAIT);
+}
+static int set_keyboard(Display *d, Window w, int capture) {
+    static int active=0;
+    if(capture==active) return active;
+    if(capture) {
+        int result=XGrabKeyboard(d,w,False,GrabModeAsync,GrabModeAsync,CurrentTime);
+        if(result==GrabSuccess) active=1;
+        trace_input("keyboard",capture,result);
+    } else { XUngrabKeyboard(d,CurrentTime); active=0; trace_input("keyboard",capture,0); }
+    XFlush(d); return active;
 }
 /* MotionNotify is only generated while the pointer is already inside the
  * current ShapeInput region.  Query the X server once per compositor cycle as
@@ -128,9 +156,9 @@ static void draw_frame(Display *d, Window window, const unsigned char *p, size_t
                     (uint32_t)idx[offset+i+2] + voffset, display_x, display_y, width, height);
             }
             glEnable(GL_SCISSOR_TEST); glScissor((int)(x1-display_x),height-(int)(y2-display_y),(int)(x2-x1),(int)(y2-y1));
-            if(textured) { glEnable(GL_TEXTURE_2D); glBindTexture(GL_TEXTURE_2D,font); } else glDisable(GL_TEXTURE_2D);
+            if(textured==1) { glEnable(GL_TEXTURE_2D); glBindTexture(GL_TEXTURE_2D,font); } else glDisable(GL_TEXTURE_2D);
             glBegin(GL_TRIANGLES);
-            for(uint32_t i=0;i<elems;i++) { uint32_t n=(uint32_t)idx[offset+i]+voffset; if(n>=nv)continue; const unsigned char *v=verts+n*20; float px,py,ux,uy; memcpy(&px,v,4);memcpy(&py,v+4,4);memcpy(&ux,v+8,4);memcpy(&uy,v+12,4); glColor4ub(v[16],v[17],v[18],v[19]); glTexCoord2f(ux,uy); glVertex2f(px,py); }
+            for(uint32_t i=0;i<elems;i++) { uint32_t n=(uint32_t)idx[offset+i]+voffset; if(n>=nv)continue; const unsigned char *v=verts+n*20; float px,py,ux,uy; memcpy(&px,v,4);memcpy(&py,v+4,4);memcpy(&ux,v+8,4);memcpy(&uy,v+12,4); if(textured==2) glColor4ub(0,0,0,v[19]); else glColor4ub(v[16],v[17],v[18],v[19]); glTexCoord2f(ux,uy); glVertex2f(px,py); }
             glEnd();
         }
     }
@@ -143,12 +171,12 @@ static void draw_frame(Display *d, Window window, const unsigned char *p, size_t
 }
 int main(int argc,char **argv) {
     if(argc!=8){fprintf(stderr,"usage: %s x y width height seconds heartbeat port\n",argv[0]);return 2;} int x=atoi(argv[1]),y=atoi(argv[2]),width=atoi(argv[3]),height=atoi(argv[4]),port=atoi(argv[7]); double duration=atof(argv[5]); if(width<=0||height<=0||duration<=0||port<=0)return 2;
-    Display*d=XOpenDisplay(NULL); if(!d){fputs("gpu: XOpenDisplay failed\n",stderr);return 3;} int screen=DefaultScreen(d); poe_geometry(d,screen,&x,&y,&width,&height); int a[]={GLX_X_RENDERABLE,True,GLX_DRAWABLE_TYPE,GLX_WINDOW_BIT,GLX_RENDER_TYPE,GLX_RGBA_BIT,GLX_X_VISUAL_TYPE,GLX_TRUE_COLOR,GLX_RED_SIZE,8,GLX_GREEN_SIZE,8,GLX_BLUE_SIZE,8,GLX_ALPHA_SIZE,8,GLX_DOUBLEBUFFER,True,None};int count;GLXFBConfig*cfgs=glXChooseFBConfig(d,screen,a,&count);XVisualInfo*vi=NULL;GLXFBConfig cfg=NULL;for(int i=0;i<count;i++){XVisualInfo*c=glXGetVisualFromFBConfig(d,cfgs[i]);XRenderPictFormat*f=c?XRenderFindVisualFormat(d,c->visual):NULL;if(f&&f->direct.alphaMask){vi=c;cfg=cfgs[i];break;}if(c)XFree(c);}if(!vi){fputs("gpu: ARGB visual unavailable\n",stderr);return 4;}
+    setlocale(LC_CTYPE,""); Display*d=XOpenDisplay(NULL); if(!d){fputs("gpu: XOpenDisplay failed\n",stderr);return 3;} int screen=DefaultScreen(d); poe_geometry(d,screen,&x,&y,&width,&height); int a[]={GLX_X_RENDERABLE,True,GLX_DRAWABLE_TYPE,GLX_WINDOW_BIT,GLX_RENDER_TYPE,GLX_RGBA_BIT,GLX_X_VISUAL_TYPE,GLX_TRUE_COLOR,GLX_RED_SIZE,8,GLX_GREEN_SIZE,8,GLX_BLUE_SIZE,8,GLX_ALPHA_SIZE,8,GLX_DOUBLEBUFFER,True,None};int count;GLXFBConfig*cfgs=glXChooseFBConfig(d,screen,a,&count);XVisualInfo*vi=NULL;GLXFBConfig cfg=NULL;for(int i=0;i<count;i++){XVisualInfo*c=glXGetVisualFromFBConfig(d,cfgs[i]);XRenderPictFormat*f=c?XRenderFindVisualFormat(d,c->visual):NULL;if(f&&f->direct.alphaMask){vi=c;cfg=cfgs[i];break;}if(c)XFree(c);}if(!vi){fputs("gpu: ARGB visual unavailable\n",stderr);return 4;}
     /* A managed _NET_WM_WINDOW_TYPE_DOCK can be placed below an XWayland
        borderless-fullscreen client by KWin.  This renderer is a transient,
        process-owned visual surface, so keep it override-redirect and maintain
        direct X stacking instead of asking the window manager for a layer. */
-    XSetWindowAttributes wa;memset(&wa,0,sizeof wa);wa.colormap=XCreateColormap(d,RootWindow(d,screen),vi->visual,AllocNone);wa.border_pixel=wa.background_pixel=0;wa.override_redirect=True;Window w=XCreateWindow(d,RootWindow(d,screen),x,y,width,height,0,vi->depth,InputOutput,vi->visual,CWColormap|CWBorderPixel|CWBackPixel|CWOverrideRedirect,&wa);XSelectInput(d,w,ButtonPressMask|ButtonReleaseMask|PointerMotionMask);XStoreName(d,w,"ExileApi GPU compositor");
+    XSetWindowAttributes wa;memset(&wa,0,sizeof wa);wa.colormap=XCreateColormap(d,RootWindow(d,screen),vi->visual,AllocNone);wa.border_pixel=wa.background_pixel=0;wa.override_redirect=True;Window w=XCreateWindow(d,RootWindow(d,screen),x,y,width,height,0,vi->depth,InputOutput,vi->visual,CWColormap|CWBorderPixel|CWBackPixel|CWOverrideRedirect,&wa);XSelectInput(d,w,ButtonPressMask|ButtonReleaseMask|PointerMotionMask|KeyPressMask|KeyReleaseMask);XStoreName(d,w,"ExileApi GPU compositor");
     /* This is an input-capable overlay, never an application window.  Without
        the ICCCM Input=False hint KWin can transiently activate it on a click;
        ExileCore then observes PoE as unfocused and fades its F12 UI.  The hint
@@ -157,7 +185,53 @@ int main(int argc,char **argv) {
     int se,er;if(XShapeQueryExtension(d,&se,&er))set_input(d,w,width,height,0);
     GLXContext ctx=glXCreateNewContext(d,cfg,GLX_RGBA_TYPE,NULL,True);if(!ctx||!glXMakeCurrent(d,w,ctx)){fputs("gpu: GLX failed\n",stderr);return 5;}XMapRaised(d,w);GLuint font;glGenTextures(1,&font);glBindTexture(GL_TEXTURE_2D,font);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);glPixelStorei(GL_UNPACK_ALIGNMENT,1);
     int listener=socket(AF_INET,SOCK_STREAM,0), client=-1,yes=1;setsockopt(listener,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof yes);fcntl(listener,F_SETFL,fcntl(listener,F_GETFL,0)|O_NONBLOCK);struct sockaddr_in addr;memset(&addr,0,sizeof addr);addr.sin_family=AF_INET;addr.sin_addr.s_addr=htonl(INADDR_LOOPBACK);addr.sin_port=htons(port);if(bind(listener,(struct sockaddr*)&addr,sizeof addr)||listen(listener,1)){perror("gpu bind");return 6;}double started=now_seconds();
-    int input_mode=0; while(now_seconds()-started<duration){struct stat hb;if(stat(argv[6],&hb)||now_seconds()-hb.st_mtime>3)break;int heartbeat_x=x,heartbeat_y=y,heartbeat_width=width,heartbeat_height=height;int requested=heartbeat_state(argv[6],&heartbeat_x,&heartbeat_y,&heartbeat_width,&heartbeat_height);/* Wine can report a transient pre-borderless client rectangle after its HWND is hidden. X11's actual PoE window is authoritative for the visible GLX surface. */if(!poe_geometry(d,screen,&x,&y,&width,&height)){x=heartbeat_x;y=heartbeat_y;width=heartbeat_width;height=heartbeat_height;}if(width>0&&height>0){XMoveResizeWindow(d,w,x,y,(unsigned)width,(unsigned)height);XRaiseWindow(d,w);}if(requested!=input_mode){input_mode=requested;set_input(d,w,width,height,input_mode);}send_pointer_position(d,w,client);while(XPending(d)){XEvent e;XNextEvent(d,&e);if(client>=0&&e.type==MotionNotify){send_mouse(client,-1,0,e.xmotion.x,e.xmotion.y);}else if(client>=0&&e.type==ButtonPress&&(e.xbutton.button>=4&&e.xbutton.button<=7)){/* X11 wheel buttons: carry a one-shot scroll event, never a mouse-button state. */send_mouse(client,-2-(int)(e.xbutton.button-4),1,e.xbutton.x,e.xbutton.y);}else if(client>=0&&(e.type==ButtonPress||e.type==ButtonRelease)&&e.xbutton.button<=3){int button=e.xbutton.button==1?0:e.xbutton.button==3?1:2,down=e.type==ButtonPress;trace_input("mouse",button,down);send_mouse(client,button,down,e.xbutton.x,e.xbutton.y);}}if(client<0){client=accept(listener,NULL,NULL);usleep(1000);continue;}uint32_t len;int rr=read_exact(client,&len,4);if(rr==0){close(client);client=-1;continue;}if(rr<0){usleep(1000);continue;}if(len>64*1024*1024){close(client);client=-1;continue;}unsigned char *buf=malloc(len);if(!buf)break;while((rr=read_exact(client,buf,len))<0)usleep(1000);if(rr>0){const unsigned char*p=buf;if(len>=4&&u32(&p)==FONT_MAGIC&&len>=16){uint32_t fw=u32(&p),fh=u32(&p),bl=u32(&p);if(bl==(uint32_t)(len-16)) {glBindTexture(GL_TEXTURE_2D,0+font);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,fw,fh,0,GL_RGBA,GL_UNSIGNED_BYTE,p);}}else if(len==8&&u32(&p)==INPUT_MODE_MAGIC)set_input(d,w,width,height,u32(&p)!=0);else draw_frame(d,w,buf,len,width,height,font);}free(buf);}
+    int input_mode=0;
+    while(now_seconds()-started<duration) {
+        struct stat hb;
+        if(stat(argv[6],&hb)||now_seconds()-hb.st_mtime>3) break;
+        int heartbeat_x=x,heartbeat_y=y,heartbeat_width=width,heartbeat_height=height;
+        int requested=heartbeat_state(argv[6],&heartbeat_x,&heartbeat_y,&heartbeat_width,&heartbeat_height);
+        if(!poe_geometry(d,screen,&x,&y,&width,&height)) { x=heartbeat_x;y=heartbeat_y;width=heartbeat_width;height=heartbeat_height; }
+        if(width>0&&height>0) { XMoveResizeWindow(d,w,x,y,(unsigned)width,(unsigned)height); XRaiseWindow(d,w); }
+        if(requested!=input_mode) { input_mode=requested; set_input(d,w,width,height,input_mode); }
+        send_pointer_position(d,w,client);
+        while(XPending(d)) {
+            XEvent e; XNextEvent(d,&e);
+            if(client>=0&&e.type==MotionNotify) send_mouse(client,-1,0,e.xmotion.x,e.xmotion.y);
+            else if(client>=0&&(e.type==KeyPress||e.type==KeyRelease)) {
+                char text[16]; KeySym key=NoSymbol; int down=e.type==KeyPress;
+                int chars=down?XLookupString(&e.xkey,text,sizeof text,&key,NULL):0;
+                if(!down) key=XLookupKeysym(&e.xkey,0);
+                send_key(client,key,down,down?utf8_codepoint(text,chars):0);
+            } else if(client>=0&&e.type==ButtonPress&&(e.xbutton.button>=4&&e.xbutton.button<=7))
+                send_mouse(client,-2-(int)(e.xbutton.button-4),1,e.xbutton.x,e.xbutton.y);
+            else if(client>=0&&(e.type==ButtonPress||e.type==ButtonRelease)&&e.xbutton.button<=3) {
+                int button=e.xbutton.button==1?0:e.xbutton.button==3?1:2,down=e.type==ButtonPress;
+                trace_input("mouse",button,down); send_mouse(client,button,down,e.xbutton.x,e.xbutton.y);
+            }
+        }
+        if(client<0) { client=accept(listener,NULL,NULL); usleep(1000); continue; }
+        uint32_t len; int rr=read_exact(client,&len,4);
+        if(rr==0) { close(client); client=-1; continue; }
+        if(rr<0) { usleep(1000); continue; }
+        if(len>64*1024*1024) { close(client); client=-1; continue; }
+        unsigned char *buf=malloc(len); if(!buf) break;
+        while((rr=read_exact(client,buf,len))<0) usleep(1000);
+        if(rr>0) {
+            const unsigned char*p=buf;
+            if(len>=4) {
+                uint32_t magic=u32(&p);
+                if(magic==FONT_MAGIC&&len>=16) {
+                    uint32_t fw=u32(&p),fh=u32(&p),bl=u32(&p);
+                    if(bl==(uint32_t)(len-16)) { glBindTexture(GL_TEXTURE_2D,font); glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,fw,fh,0,GL_RGBA,GL_UNSIGNED_BYTE,p); }
+                } else if(len==8&&magic==INPUT_MODE_MAGIC) set_input(d,w,width,height,u32(&p)!=0);
+                else if(len==8&&magic==KEYBOARD_MODE_MAGIC) set_keyboard(d,w,u32(&p)!=0);
+                else draw_frame(d,w,buf,len,width,height,font);
+            }
+        }
+        free(buf);
+    }
+    set_keyboard(d,w,0);
     if(client>=0) close(client);
     close(listener);glDeleteTextures(1,&font);glXMakeCurrent(d,None,NULL);glXDestroyContext(d,ctx);XDestroyWindow(d,w);XFree(vi);XFree(cfgs);XCloseDisplay(d);return 0;
 }

@@ -56,6 +56,12 @@
         /// </summary>
         public bool WantsMouseCapture() => ImGui.GetIO().WantCaptureMouse;
 
+        internal bool WantsKeyboardCapture()
+        {
+            var io = ImGui.GetIO();
+            return io.WantCaptureKeyboard || io.WantTextInput;
+        }
+
         internal void AddNativeMouseButton(int button, bool down)
         {
             if (button >= 0 && button < 5) ImGui.GetIO().AddMouseButtonEvent(button, down);
@@ -64,6 +70,13 @@
         internal void AddNativeMouseWheel(float horizontal, float vertical)
         {
             ImGui.GetIO().AddMouseWheelEvent(horizontal, vertical);
+        }
+
+        internal void AddNativeKey(uint keysym, bool down, uint codepoint)
+        {
+            var io = ImGui.GetIO();
+            if (TryMapNativeKey(keysym, out var key)) io.AddKeyEvent(key, down);
+            if (down && codepoint != 0) io.AddInputCharacter(codepoint);
         }
 
         internal void AddNativeMousePosition(float x, float y)
@@ -278,6 +291,53 @@
                 _ => ImGuiKey.None
             };
 
+            return result != ImGuiKey.None;
+        }
+
+        // X11 keysyms used by the native non-focusable GLX compositor.
+        // Printable Latin keysyms intentionally share their Unicode values.
+        private static bool TryMapNativeKey(uint key, out ImGuiKey result)
+        {
+            result = key switch
+            {
+                0xff09 => ImGuiKey.Tab,
+                0xff0d => ImGuiKey.Enter,
+                0xff1b => ImGuiKey.Escape,
+                0xff08 => ImGuiKey.Backspace,
+                0xffff => ImGuiKey.Delete,
+                0xff63 => ImGuiKey.Insert,
+                0xff50 => ImGuiKey.Home,
+                0xff57 => ImGuiKey.End,
+                0xff55 => ImGuiKey.PageUp,
+                0xff56 => ImGuiKey.PageDown,
+                0xff51 => ImGuiKey.LeftArrow,
+                0xff52 => ImGuiKey.UpArrow,
+                0xff53 => ImGuiKey.RightArrow,
+                0xff54 => ImGuiKey.DownArrow,
+                0xffe1 or 0xffe2 => ImGuiKey.ModShift,
+                0xffe3 or 0xffe4 => ImGuiKey.ModCtrl,
+                0xffe9 or 0xffea => ImGuiKey.ModAlt,
+                0xffeb or 0xffec => ImGuiKey.ModSuper,
+                0xffbe => ImGuiKey.F1,
+                0xffbf => ImGuiKey.F2,
+                0xffc0 => ImGuiKey.F3,
+                0xffc1 => ImGuiKey.F4,
+                0xffc2 => ImGuiKey.F5,
+                0xffc3 => ImGuiKey.F6,
+                0xffc4 => ImGuiKey.F7,
+                0xffc5 => ImGuiKey.F8,
+                0xffc6 => ImGuiKey.F9,
+                0xffc7 => ImGuiKey.F10,
+                0xffc8 => ImGuiKey.F11,
+                0xffc9 => ImGuiKey.F12,
+                _ => ImGuiKey.None,
+            };
+            if (result != ImGuiKey.None) return true;
+            if (key >= 'a' && key <= 'z') result = ImGuiKey.A + (int)(key - 'a');
+            else if (key >= 'A' && key <= 'Z') result = ImGuiKey.A + (int)(key - 'A');
+            else if (key >= '0' && key <= '9') result = ImGuiKey._0 + (int)(key - '0');
+            else if (key == ' ') result = ImGuiKey.Space;
+            else result = ImGuiKey.None;
             return result != ImGuiKey.None;
         }
 

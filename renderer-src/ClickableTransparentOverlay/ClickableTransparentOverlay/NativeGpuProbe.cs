@@ -17,6 +17,7 @@ namespace ClickableTransparentOverlay
         private static NativeGpuTransport transport;
         private static bool fontSent;
         private static bool? interactive;
+        private static bool? keyboardCapture;
         private static bool menuInput;
         private NativeGpuProbe() { }
 
@@ -82,25 +83,36 @@ namespace ClickableTransparentOverlay
             if (transport.TrySend(NativeGpuFrameProtocol.SerializeInputMode(wantsInput))) interactive = wantsInput;
         }
 
+        internal static void SetKeyboardCapture(bool wantsInput)
+        {
+            if (transport is null || keyboardCapture == wantsInput) return;
+            if (transport.TrySend(NativeGpuFrameProtocol.SerializeKeyboardMode(wantsInput))) keyboardCapture = wantsInput;
+        }
+
         internal static void PollInput(ImGuiInputHandler input)
         {
-            while (transport is not null && transport.TryReadMouse(out var button, out var down, out var x, out var y))
+            while (transport is not null && transport.TryReadEvent(out var kind, out var code, out var down, out var value, out var value2))
             {
-                input.AddNativeMousePosition(x, y);
-                switch (button)
+                if (kind == NativeGpuFrameProtocol.KeyInputMagic)
                 {
-                    case -2: if (down) input.AddNativeMouseWheel(0, 1); break;  // X11 Button4
-                    case -3: if (down) input.AddNativeMouseWheel(0, -1); break; // X11 Button5
-                    case -4: if (down) input.AddNativeMouseWheel(-1, 0); break; // X11 Button6
-                    case -5: if (down) input.AddNativeMouseWheel(1, 0); break;  // X11 Button7
-                    default: input.AddNativeMouseButton(button, down); break;
+                    input.AddNativeKey((uint)code, down, value);
+                    continue;
+                }
+                input.AddNativeMousePosition(BitConverter.Int32BitsToSingle((int)value), BitConverter.Int32BitsToSingle((int)value2));
+                switch (code)
+                {
+                    case -2: if (down) input.AddNativeMouseWheel(0, 1); break;
+                    case -3: if (down) input.AddNativeMouseWheel(0, -1); break;
+                    case -4: if (down) input.AddNativeMouseWheel(-1, 0); break;
+                    case -5: if (down) input.AddNativeMouseWheel(1, 0); break;
+                    default: input.AddNativeMouseButton(code, down); break;
                 }
             }
         }
 
         internal static void Stop()
         {
-            transport?.Dispose(); transport = null; fontSent = false; interactive = null; menuInput = false;
+            transport?.Dispose(); transport = null; fontSent = false; interactive = null; keyboardCapture = null; menuInput = false;
             if (heartbeatWindowsPath is not null) { try { File.Delete(heartbeatWindowsPath); } catch { } }
             heartbeatWindowsPath = null;
         }

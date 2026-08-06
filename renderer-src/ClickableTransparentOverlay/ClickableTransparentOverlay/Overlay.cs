@@ -44,6 +44,7 @@
         private bool useLayeredBackend;
         private bool nativeGpuStarted;
         private bool nativeGpuStartAttempted;
+        private bool? nativeGpuKeyboardCapture;
         private readonly Stopwatch performanceClock = Stopwatch.StartNew();
         private long renderedFrames;
 
@@ -563,6 +564,16 @@
                 // therefore remain pass-through over ground item labels.
                 var wantsMouseCapture = this.inputhandler.WantsMouseCapture() ||
                     (this.backendPreference == BackendPreference.NativeGpuProbe && this.nativeGpuForceInput);
+                if (this.backendPreference == BackendPreference.NativeGpuProbe && this.nativeGpuStarted)
+                {
+                    var wantsKeyboardCapture = this.inputhandler.WantsKeyboardCapture();
+                    if (this.nativeGpuKeyboardCapture != wantsKeyboardCapture)
+                    {
+                        this.nativeGpuKeyboardCapture = wantsKeyboardCapture;
+                        LogRenderer($"native-gpu keyboard capture requested={wantsKeyboardCapture}");
+                    }
+                    NativeGpuProbe.SetKeyboardCapture(wantsKeyboardCapture);
+                }
                 // In the native-GPU path the Wine HWND is hidden. Its
                 // WS_EX_TRANSPARENT/focus toggles cannot route input to the
                 // visible GLX surface and can steal focus from PoE. The GLX
@@ -626,7 +637,8 @@
                     // against the current full-frame BGRA copy.
                     var geometryBytes = draw.Vertices * 20L + draw.Indices * 2L;
                     var nativeSize = NativeGpuFrameProtocol.LastDisplaySize;
-                    LogRenderer($"frames={this.renderedFrames} average-fps={this.renderedFrames / seconds:F1} size={this.window.Dimensions.Width}x{this.window.Dimensions.Height} backend={(this.useLayeredBackend ? "layered" : "legacy")} imgui-display={nativeSize.Width:F0}x{nativeSize.Height:F0} imgui-vtx={draw.Vertices} idx={draw.Indices} cmd={draw.Commands} geometry-bytes={geometryBytes}");
+                    var textureStats = NativeGpuFrameProtocol.LastTextureStats;
+                    LogRenderer($"frames={this.renderedFrames} average-fps={this.renderedFrames / seconds:F1} size={this.window.Dimensions.Width}x{this.window.Dimensions.Height} backend={(this.useLayeredBackend ? "layered" : "legacy")} imgui-display={nativeSize.Width:F0}x{nativeSize.Height:F0} imgui-vtx={draw.Vertices} idx={draw.Indices} cmd={draw.Commands} geometry-bytes={geometryBytes} textures=font:{textureStats.FontCommands}/plain:{textureStats.UntexturedCommands}/unsupported:{textureStats.UnsupportedTextureCommands}@{textureStats.UnsupportedTextureIds}");
                 }
             }
             this.OnClosed().GetAwaiter().GetResult();

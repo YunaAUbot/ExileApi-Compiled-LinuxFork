@@ -35,9 +35,9 @@ namespace ClickableTransparentOverlay
             }
         }
 
-        internal bool TryReadMouse(out int button, out bool down, out float x, out float y)
+        internal bool TryReadEvent(out uint kind, out int code, out bool down, out uint value, out uint value2)
         {
-            button = 0; down = false; x = 0; y = 0;
+            kind = 0; code = 0; down = false; value = 0; value2 = 0;
             try
             {
                 if (this.stream is null || this.client.Available == 0) return false;
@@ -53,9 +53,12 @@ namespace ClickableTransparentOverlay
                 if (available > 0) this.incomingCount += this.stream.Read(this.incoming, this.incomingCount, available);
                 if (this.incomingCount != this.expectedIncoming) return false;
                 var message = this.incoming; this.expectedIncoming = -1; this.incoming = null;
-                if (BitConverter.ToUInt32(message, 0) != NativeGpuFrameProtocol.MouseInputMagic) return false;
-                button = BitConverter.ToInt32(message, 4); down = BitConverter.ToUInt32(message, 8) != 0;
-                x = BitConverter.ToSingle(message, 12); y = BitConverter.ToSingle(message, 16);
+                kind = BitConverter.ToUInt32(message, 0);
+                if (kind != NativeGpuFrameProtocol.MouseInputMagic && kind != NativeGpuFrameProtocol.KeyInputMagic) return false;
+                code = BitConverter.ToInt32(message, 4);
+                down = BitConverter.ToUInt32(message, 8) != 0;
+                value = BitConverter.ToUInt32(message, 12);
+                value2 = BitConverter.ToUInt32(message, 16);
                 return true;
             }
             catch { DisposeConnection(); return false; }
