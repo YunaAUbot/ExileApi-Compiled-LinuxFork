@@ -9,25 +9,11 @@
     ".NETCoreApp,Version=v10.0/win-x64": {
       "FullRareSetManager/1.0.0": {
         "dependencies": {
-          "ImGui.NET": "1.90.0.1",
           "Newtonsoft.Json": "13.0.3",
           "SharpDX.Mathematics": "4.2.0"
         },
         "runtime": {
           "FullRareSetManager.dll": {}
-        }
-      },
-      "ImGui.NET/1.90.0.1": {
-        "runtime": {
-          "lib/net6.0/ImGui.NET.dll": {
-            "assemblyVersion": "1.90.0.1",
-            "fileVersion": "1.90.0.1"
-          }
-        },
-        "native": {
-          "runtimes/win-x64/native/cimgui.dll": {
-            "fileVersion": "0.0.0.0"
-          }
         }
       },
       "Newtonsoft.Json/13.0.3": {
@@ -64,13 +50,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "ImGui.NET/1.90.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZhEN7SKx5e9bbWY5BR2tNdbl7W4cJXaESwFRGo6p2pUSM9Y8yxtWq2zM4Qf8a8HYCmblHuFWtp8YcZiWlcJ3ZQ==",
-      "path": "imgui.net/1.90.0.1",
-      "hashPath": "imgui.net.1.90.0.1.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",

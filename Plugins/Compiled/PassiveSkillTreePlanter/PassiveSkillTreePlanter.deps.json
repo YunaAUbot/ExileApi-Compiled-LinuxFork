@@ -9,26 +9,12 @@
     ".NETCoreApp,Version=v10.0/win-x64": {
       "PassiveSkillTreePlanter/1.0.0": {
         "dependencies": {
-          "ImGui.NET": "1.90.0.1",
           "Newtonsoft.Json": "13.0.3",
-          "Serilog": "4.3.1",
+          "Serilog": "4.4.0",
           "SharpDX.Mathematics": "4.2.0"
         },
         "runtime": {
           "PassiveSkillTreePlanter.dll": {}
-        }
-      },
-      "ImGui.NET/1.90.0.1": {
-        "runtime": {
-          "lib/net6.0/ImGui.NET.dll": {
-            "assemblyVersion": "1.90.0.1",
-            "fileVersion": "1.90.0.1"
-          }
-        },
-        "native": {
-          "runtimes/win-x64/native/cimgui.dll": {
-            "fileVersion": "0.0.0.0"
-          }
         }
       },
       "Newtonsoft.Json/13.0.3": {
@@ -39,11 +25,11 @@
           }
         }
       },
-      "Serilog/4.3.1": {
+      "Serilog/4.4.0": {
         "runtime": {
           "lib/net10.0/Serilog.dll": {
-            "assemblyVersion": "4.3.0.0",
-            "fileVersion": "4.3.0.0"
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.0.0"
           }
         }
       },
@@ -74,13 +60,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ImGui.NET/1.90.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZhEN7SKx5e9bbWY5BR2tNdbl7W4cJXaESwFRGo6p2pUSM9Y8yxtWq2zM4Qf8a8HYCmblHuFWtp8YcZiWlcJ3ZQ==",
-      "path": "imgui.net/1.90.0.1",
-      "hashPath": "imgui.net.1.90.0.1.nupkg.sha512"
-    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -88,12 +67,12 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
-    "Serilog/4.3.1": {
+    "Serilog/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-savYe7h5yRlkqBVOwP8cIRDOdqKiPmYCU4W87JH38sBmcKD5EBoXvQIw6bNEvZ/pTe1gsiye3VFCzBsoppGkXQ==",
-      "path": "serilog/4.3.1",
-      "hashPath": "serilog.4.3.1.nupkg.sha512"
+      "sha512": "sha512-ZC6Le3rr4TVJJjS4KsQAesxeF1EhW9qcZmmG7eP5Y2G3+gTGkJEUXkq4+tZNPtyp05I0wWOxnIjwtxFweJsObw==",
+      "path": "serilog/4.4.0",
+      "hashPath": "serilog.4.4.0.nupkg.sha512"
     },
     "SharpDX/4.2.0": {
       "type": "package",
