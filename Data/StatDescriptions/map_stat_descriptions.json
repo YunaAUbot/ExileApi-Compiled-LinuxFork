@@ -1,8 +1,8 @@
 [
   {
     "Stats": [
-      3299,
-      3300
+      3302,
+      3303
     ],
     "Sections": [
       {
@@ -26,8 +26,39 @@
   },
   {
     "Stats": [
+      23229
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": 1,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "{0}% increased [AtlasDropScaling|Atlas Drops] in this Area"
+      },
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": -1
+          }
+        ],
+        "StatConversionTypes": [
+          "Negate"
+        ],
+        "String": "{0}% reduced [AtlasDropScaling|Atlas Drops] in this Area"
+      }
+    ]
+  },
+  {
+    "Stats": [
       1041,
-      23295
+      23016
     ],
     "Sections": [
       {
@@ -69,7 +100,7 @@
   {
     "Stats": [
       1246,
-      23296
+      23017
     ],
     "Sections": [
       {
@@ -110,8 +141,8 @@
   },
   {
     "Stats": [
-      22909,
-      23297
+      22632,
+      23018
     ],
     "Sections": [
       {
@@ -152,7 +183,7 @@
   },
   {
     "Stats": [
-      3965
+      3968
     ],
     "Sections": [
       {
@@ -165,14 +196,14 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "This Area's Modifiers to Quantity of Items found also apply to Rarity"
+        "String": "This Area's Modifiers to [AtlasDropScaling|Atlas Drops] also apply to Item Rarity"
       }
     ]
   },
   {
     "Stats": [
       1026,
-      23294
+      23015
     ],
     "Sections": [
       {
@@ -232,7 +263,7 @@
   },
   {
     "Stats": [
-      2572
+      2575
     ],
     "Sections": [
       {
@@ -251,7 +282,7 @@
   },
   {
     "Stats": [
-      10777
+      10772
     ],
     "Sections": [
       {
@@ -282,7 +313,7 @@
   },
   {
     "Stats": [
-      10773
+      10768
     ],
     "Sections": [
       {
@@ -313,7 +344,7 @@
   },
   {
     "Stats": [
-      10778
+      10773
     ],
     "Sections": [
       {
@@ -344,7 +375,7 @@
   },
   {
     "Stats": [
-      10774
+      10769
     ],
     "Sections": [
       {
@@ -375,7 +406,7 @@
   },
   {
     "Stats": [
-      10775
+      10770
     ],
     "Sections": [
       {
@@ -406,7 +437,7 @@
   },
   {
     "Stats": [
-      10776
+      10771
     ],
     "Sections": [
       {
@@ -437,7 +468,7 @@
   },
   {
     "Stats": [
-      10779
+      10774
     ],
     "Sections": [
       {
@@ -468,7 +499,7 @@
   },
   {
     "Stats": [
-      10780
+      10775
     ],
     "Sections": [
       {
@@ -499,7 +530,7 @@
   },
   {
     "Stats": [
-      10781
+      10776
     ],
     "Sections": [
       {
@@ -518,7 +549,7 @@
   },
   {
     "Stats": [
-      23007
+      22730
     ],
     "Sections": [
       {
@@ -537,7 +568,7 @@
   },
   {
     "Stats": [
-      22999
+      22722
     ],
     "Sections": [
       {
@@ -556,7 +587,7 @@
   },
   {
     "Stats": [
-      22995
+      22718
     ],
     "Sections": [
       {
@@ -587,7 +618,7 @@
   },
   {
     "Stats": [
-      22996
+      22719
     ],
     "Sections": [
       {
@@ -618,7 +649,7 @@
   },
   {
     "Stats": [
-      23079
+      22802
     ],
     "Sections": [
       {
@@ -649,7 +680,7 @@
   },
   {
     "Stats": [
-      22994
+      22717
     ],
     "Sections": [
       {
@@ -680,7 +711,7 @@
   },
   {
     "Stats": [
-      23011
+      22734
     ],
     "Sections": [
       {
@@ -699,7 +730,7 @@
   },
   {
     "Stats": [
-      23009
+      22732
     ],
     "Sections": [
       {
@@ -730,7 +761,7 @@
   },
   {
     "Stats": [
-      23076
+      22799
     ],
     "Sections": [
       {
@@ -761,7 +792,7 @@
   },
   {
     "Stats": [
-      23010
+      22733
     ],
     "Sections": [
       {
@@ -792,7 +823,7 @@
   },
   {
     "Stats": [
-      23085
+      22808
     ],
     "Sections": [
       {
@@ -811,7 +842,7 @@
   },
   {
     "Stats": [
-      23008
+      22731
     ],
     "Sections": [
       {
@@ -842,7 +873,7 @@
   },
   {
     "Stats": [
-      23238
+      22961
     ],
     "Sections": [
       {
@@ -873,7 +904,7 @@
   },
   {
     "Stats": [
-      23002
+      22725
     ],
     "Sections": [
       {
@@ -904,7 +935,7 @@
   },
   {
     "Stats": [
-      23005
+      22728
     ],
     "Sections": [
       {
@@ -935,7 +966,7 @@
   },
   {
     "Stats": [
-      23176
+      22899
     ],
     "Sections": [
       {
@@ -966,7 +997,7 @@
   },
   {
     "Stats": [
-      23171
+      22894
     ],
     "Sections": [
       {
@@ -997,7 +1028,7 @@
   },
   {
     "Stats": [
-      23174
+      22897
     ],
     "Sections": [
       {
@@ -1028,7 +1059,7 @@
   },
   {
     "Stats": [
-      23003
+      22726
     ],
     "Sections": [
       {
@@ -1059,7 +1090,7 @@
   },
   {
     "Stats": [
-      23004
+      22727
     ],
     "Sections": [
       {
@@ -1090,7 +1121,7 @@
   },
   {
     "Stats": [
-      23173
+      22896
     ],
     "Sections": [
       {
@@ -1121,7 +1152,7 @@
   },
   {
     "Stats": [
-      23177
+      22900
     ],
     "Sections": [
       {
@@ -1152,7 +1183,7 @@
   },
   {
     "Stats": [
-      23175
+      22898
     ],
     "Sections": [
       {
@@ -1183,7 +1214,7 @@
   },
   {
     "Stats": [
-      23075
+      22798
     ],
     "Sections": [
       {
@@ -1196,7 +1227,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Rare Monsters in Area drop an additional Scarab"
+        "String": "Rare Monsters in Area drop an additional [Thread]"
       },
       {
         "StatRanges": [
@@ -1208,13 +1239,13 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Rare Monsters in Area drop {0} additional Scarabs"
+        "String": "Rare Monsters in Area drop {0} additional [Thread|Threads]"
       }
     ]
   },
   {
     "Stats": [
-      23172
+      22895
     ],
     "Sections": [
       {
@@ -1245,7 +1276,7 @@
   },
   {
     "Stats": [
-      23006
+      22729
     ],
     "Sections": [
       {
@@ -1276,7 +1307,7 @@
   },
   {
     "Stats": [
-      16256
+      16068
     ],
     "Sections": [
       {
@@ -1295,7 +1326,7 @@
   },
   {
     "Stats": [
-      22392
+      22132
     ],
     "Sections": [
       {
@@ -1314,7 +1345,7 @@
   },
   {
     "Stats": [
-      20917
+      20656
     ],
     "Sections": [
       {
@@ -1333,7 +1364,7 @@
   },
   {
     "Stats": [
-      18414
+      18221
     ],
     "Sections": [
       {
@@ -1352,7 +1383,7 @@
   },
   {
     "Stats": [
-      23013
+      22736
     ],
     "Sections": [
       {
@@ -1383,7 +1414,7 @@
   },
   {
     "Stats": [
-      23018
+      22741
     ],
     "Sections": [
       {
@@ -1414,7 +1445,7 @@
   },
   {
     "Stats": [
-      19950
+      19761
     ],
     "Sections": [
       {
@@ -1433,7 +1464,7 @@
   },
   {
     "Stats": [
-      14073
+      14065
     ],
     "Sections": [
       {
@@ -1464,7 +1495,7 @@
   },
   {
     "Stats": [
-      23017
+      22740
     ],
     "Sections": [
       {
@@ -1483,7 +1514,7 @@
   },
   {
     "Stats": [
-      22535
+      22275
     ],
     "Sections": [
       {
@@ -1514,7 +1545,7 @@
   },
   {
     "Stats": [
-      19934
+      19745
     ],
     "Sections": [
       {
@@ -1533,7 +1564,7 @@
   },
   {
     "Stats": [
-      13959
+      13953
     ],
     "Sections": [
       {
@@ -1564,7 +1595,7 @@
   },
   {
     "Stats": [
-      13900
+      13894
     ],
     "Sections": [
       {
@@ -1619,8 +1650,8 @@
   },
   {
     "Stats": [
-      13889,
-      23300
+      13883,
+      23021
     ],
     "Sections": [
       {
@@ -1661,7 +1692,7 @@
   },
   {
     "Stats": [
-      21186
+      20926
     ],
     "Sections": [
       {
@@ -1692,7 +1723,7 @@
   },
   {
     "Stats": [
-      19944
+      19755
     ],
     "Sections": [
       {
@@ -1711,7 +1742,26 @@
   },
   {
     "Stats": [
-      20278
+      23289
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area is [TormentedArea|Tormented]"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      20015
     ],
     "Sections": [
       {
@@ -1730,7 +1780,7 @@
   },
   {
     "Stats": [
-      19999
+      19802
     ],
     "Sections": [
       {
@@ -1749,7 +1799,7 @@
   },
   {
     "Stats": [
-      13962
+      13956
     ],
     "Sections": [
       {
@@ -1780,7 +1830,7 @@
   },
   {
     "Stats": [
-      22545
+      22285
     ],
     "Sections": [
       {
@@ -1811,7 +1861,7 @@
   },
   {
     "Stats": [
-      13918
+      13912
     ],
     "Sections": [
       {
@@ -1842,7 +1892,7 @@
   },
   {
     "Stats": [
-      19927
+      19738
     ],
     "Sections": [
       {
@@ -1861,7 +1911,7 @@
   },
   {
     "Stats": [
-      16707
+      16519
     ],
     "Sections": [
       {
@@ -1892,7 +1942,7 @@
   },
   {
     "Stats": [
-      19928
+      19739
     ],
     "Sections": [
       {
@@ -1923,7 +1973,7 @@
   },
   {
     "Stats": [
-      19925
+      19736
     ],
     "Sections": [
       {
@@ -1942,7 +1992,7 @@
   },
   {
     "Stats": [
-      13713
+      13707
     ],
     "Sections": [
       {
@@ -1973,7 +2023,7 @@
   },
   {
     "Stats": [
-      19926
+      19737
     ],
     "Sections": [
       {
@@ -2004,7 +2054,7 @@
   },
   {
     "Stats": [
-      22534
+      22274
     ],
     "Sections": [
       {
@@ -2023,7 +2073,7 @@
   },
   {
     "Stats": [
-      19937
+      19748
     ],
     "Sections": [
       {
@@ -2054,7 +2104,7 @@
   },
   {
     "Stats": [
-      19935
+      19746
     ],
     "Sections": [
       {
@@ -2073,7 +2123,7 @@
   },
   {
     "Stats": [
-      10555
+      10550
     ],
     "Sections": [
       {
@@ -2104,7 +2154,7 @@
   },
   {
     "Stats": [
-      19936
+      19747
     ],
     "Sections": [
       {
@@ -2123,7 +2173,7 @@
   },
   {
     "Stats": [
-      13757
+      13751
     ],
     "Sections": [
       {
@@ -2154,7 +2204,7 @@
   },
   {
     "Stats": [
-      20734
+      20473
     ],
     "Sections": [
       {
@@ -2173,7 +2223,7 @@
   },
   {
     "Stats": [
-      20735
+      20474
     ],
     "Sections": [
       {
@@ -2192,7 +2242,7 @@
   },
   {
     "Stats": [
-      22773
+      22512
     ],
     "Sections": [
       {
@@ -2211,7 +2261,7 @@
   },
   {
     "Stats": [
-      20733
+      20472
     ],
     "Sections": [
       {
@@ -2230,7 +2280,7 @@
   },
   {
     "Stats": [
-      15744
+      15720
     ],
     "Sections": [
       {
@@ -2261,7 +2311,7 @@
   },
   {
     "Stats": [
-      22261
+      22001
     ],
     "Sections": [
       {
@@ -2280,7 +2330,7 @@
   },
   {
     "Stats": [
-      22610
+      22350
     ],
     "Sections": [
       {
@@ -2299,7 +2349,7 @@
   },
   {
     "Stats": [
-      15745
+      15721
     ],
     "Sections": [
       {
@@ -2330,7 +2380,7 @@
   },
   {
     "Stats": [
-      19900
+      19709
     ],
     "Sections": [
       {
@@ -2349,7 +2399,7 @@
   },
   {
     "Stats": [
-      20812
+      20551
     ],
     "Sections": [
       {
@@ -2368,7 +2418,7 @@
   },
   {
     "Stats": [
-      20731
+      20470
     ],
     "Sections": [
       {
@@ -2387,7 +2437,7 @@
   },
   {
     "Stats": [
-      19911
+      19722
     ],
     "Sections": [
       {
@@ -2406,7 +2456,7 @@
   },
   {
     "Stats": [
-      22386
+      22126
     ],
     "Sections": [
       {
@@ -2425,7 +2475,7 @@
   },
   {
     "Stats": [
-      22390
+      22130
     ],
     "Sections": [
       {
@@ -2456,7 +2506,7 @@
   },
   {
     "Stats": [
-      13840
+      13834
     ],
     "Sections": [
       {
@@ -2475,7 +2525,7 @@
   },
   {
     "Stats": [
-      5575
+      5577
     ],
     "Sections": [
       {
@@ -2506,7 +2556,7 @@
   },
   {
     "Stats": [
-      22734
+      22473
     ],
     "Sections": [
       {
@@ -2525,7 +2575,7 @@
   },
   {
     "Stats": [
-      21776
+      21516
     ],
     "Sections": [
       {
@@ -2544,7 +2594,7 @@
   },
   {
     "Stats": [
-      22383
+      22123
     ],
     "Sections": [
       {
@@ -2575,7 +2625,7 @@
   },
   {
     "Stats": [
-      22385
+      22125
     ],
     "Sections": [
       {
@@ -2606,7 +2656,7 @@
   },
   {
     "Stats": [
-      22384
+      22124
     ],
     "Sections": [
       {
@@ -2637,7 +2687,7 @@
   },
   {
     "Stats": [
-      22391
+      22131
     ],
     "Sections": [
       {
@@ -2656,7 +2706,7 @@
   },
   {
     "Stats": [
-      22532
+      22272
     ],
     "Sections": [
       {
@@ -2687,7 +2737,7 @@
   },
   {
     "Stats": [
-      22378
+      22118
     ],
     "Sections": [
       {
@@ -2718,7 +2768,7 @@
   },
   {
     "Stats": [
-      20611
+      20348
     ],
     "Sections": [
       {
@@ -2749,7 +2799,7 @@
   },
   {
     "Stats": [
-      18278
+      18085
     ],
     "Sections": [
       {
@@ -2768,7 +2818,7 @@
   },
   {
     "Stats": [
-      19919
+      19730
     ],
     "Sections": [
       {
@@ -2787,7 +2837,7 @@
   },
   {
     "Stats": [
-      20775
+      20514
     ],
     "Sections": [
       {
@@ -2818,7 +2868,7 @@
   },
   {
     "Stats": [
-      19921
+      19732
     ],
     "Sections": [
       {
@@ -2849,7 +2899,7 @@
   },
   {
     "Stats": [
-      19920
+      19731
     ],
     "Sections": [
       {
@@ -2868,7 +2918,7 @@
   },
   {
     "Stats": [
-      20732
+      20471
     ],
     "Sections": [
       {
@@ -2887,7 +2937,7 @@
   },
   {
     "Stats": [
-      17561
+      17368
     ],
     "Sections": [
       {
@@ -2918,7 +2968,7 @@
   },
   {
     "Stats": [
-      14033
+      14025
     ],
     "Sections": [
       {
@@ -2949,7 +2999,7 @@
   },
   {
     "Stats": [
-      19949
+      19760
     ],
     "Sections": [
       {
@@ -2968,7 +3018,7 @@
   },
   {
     "Stats": [
-      20646
+      20384
     ],
     "Sections": [
       {
@@ -2987,7 +3037,7 @@
   },
   {
     "Stats": [
-      20276
+      20013
     ],
     "Sections": [
       {
@@ -3006,7 +3056,7 @@
   },
   {
     "Stats": [
-      22536
+      22276
     ],
     "Sections": [
       {
@@ -3037,7 +3087,7 @@
   },
   {
     "Stats": [
-      19946
+      19757
     ],
     "Sections": [
       {
@@ -3056,7 +3106,7 @@
   },
   {
     "Stats": [
-      22537
+      22277
     ],
     "Sections": [
       {
@@ -3075,7 +3125,7 @@
   },
   {
     "Stats": [
-      19945
+      19756
     ],
     "Sections": [
       {
@@ -3106,7 +3156,7 @@
   },
   {
     "Stats": [
-      22382
+      22122
     ],
     "Sections": [
       {
@@ -3137,7 +3187,7 @@
   },
   {
     "Stats": [
-      19947
+      19758
     ],
     "Sections": [
       {
@@ -3168,7 +3218,7 @@
   },
   {
     "Stats": [
-      19996
+      19799
     ],
     "Sections": [
       {
@@ -3187,7 +3237,7 @@
   },
   {
     "Stats": [
-      18274
+      18081
     ],
     "Sections": [
       {
@@ -3206,7 +3256,7 @@
   },
   {
     "Stats": [
-      20961
+      20700
     ],
     "Sections": [
       {
@@ -3237,7 +3287,7 @@
   },
   {
     "Stats": [
-      22469
+      22209
     ],
     "Sections": [
       {
@@ -3256,7 +3306,7 @@
   },
   {
     "Stats": [
-      19997
+      19800
     ],
     "Sections": [
       {
@@ -3275,7 +3325,7 @@
   },
   {
     "Stats": [
-      19917
+      19728
     ],
     "Sections": [
       {
@@ -3306,26 +3356,7 @@
   },
   {
     "Stats": [
-      20934
-    ],
-    "Sections": [
-      {
-        "StatRanges": [
-          {
-            "Item1": -2147483648,
-            "Item2": 2147483647
-          }
-        ],
-        "StatConversionTypes": [
-          "NoFunction"
-        ],
-        "String": "Harbingers in Area spawn Empowered Obelisks"
-      }
-    ]
-  },
-  {
-    "Stats": [
-      19918
+      19729
     ],
     "Sections": [
       {
@@ -3344,7 +3375,7 @@
   },
   {
     "Stats": [
-      14261
+      14240
     ],
     "Sections": [
       {
@@ -3375,7 +3406,7 @@
   },
   {
     "Stats": [
-      19910
+      19721
     ],
     "Sections": [
       {
@@ -3394,7 +3425,7 @@
   },
   {
     "Stats": [
-      20232
+      19969
     ],
     "Sections": [
       {
@@ -3413,7 +3444,7 @@
   },
   {
     "Stats": [
-      19912
+      19723
     ],
     "Sections": [
       {
@@ -3432,7 +3463,7 @@
   },
   {
     "Stats": [
-      16050
+      15931
     ],
     "Sections": [
       {
@@ -3451,7 +3482,7 @@
   },
   {
     "Stats": [
-      15995
+      15876
     ],
     "Sections": [
       {
@@ -3470,7 +3501,7 @@
   },
   {
     "Stats": [
-      5869
+      5868
     ],
     "Sections": [
       {
@@ -3501,7 +3532,7 @@
   },
   {
     "Stats": [
-      22540
+      22280
     ],
     "Sections": [
       {
@@ -3532,7 +3563,7 @@
   },
   {
     "Stats": [
-      13950
+      13944
     ],
     "Sections": [
       {
@@ -3563,7 +3594,7 @@
   },
   {
     "Stats": [
-      19940
+      19751
     ],
     "Sections": [
       {
@@ -3582,7 +3613,7 @@
   },
   {
     "Stats": [
-      20007
+      19810
     ],
     "Sections": [
       {
@@ -3601,7 +3632,7 @@
   },
   {
     "Stats": [
-      22381
+      22121
     ],
     "Sections": [
       {
@@ -3632,7 +3663,7 @@
   },
   {
     "Stats": [
-      20609
+      20346
     ],
     "Sections": [
       {
@@ -3663,7 +3694,7 @@
   },
   {
     "Stats": [
-      8892
+      8891
     ],
     "Sections": [
       {
@@ -3682,7 +3713,7 @@
   },
   {
     "Stats": [
-      20690
+      20429
     ],
     "Sections": [
       {
@@ -3713,7 +3744,7 @@
   },
   {
     "Stats": [
-      13899
+      13893
     ],
     "Sections": [
       {
@@ -3744,7 +3775,7 @@
   },
   {
     "Stats": [
-      22377
+      22117
     ],
     "Sections": [
       {
@@ -3775,7 +3806,7 @@
   },
   {
     "Stats": [
-      22468
+      22208
     ],
     "Sections": [
       {
@@ -3806,7 +3837,7 @@
   },
   {
     "Stats": [
-      20904
+      20643
     ],
     "Sections": [
       {
@@ -3819,7 +3850,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Area contains an additional Apparition Shrine"
+        "String": "Area contains an additional [ApparitionShrine|Apparition Shrine]"
       },
       {
         "StatRanges": [
@@ -3831,13 +3862,13 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Area contains {0} additional Apparition Shrines"
+        "String": "Area contains {0} additional [ApparitionShrine|Apparition Shrines]"
       }
     ]
   },
   {
     "Stats": [
-      20910
+      20649
     ],
     "Sections": [
       {
@@ -3868,7 +3899,7 @@
   },
   {
     "Stats": [
-      10001
+      9996
     ],
     "Sections": [
       {
@@ -3899,7 +3930,7 @@
   },
   {
     "Stats": [
-      10000
+      9995
     ],
     "Sections": [
       {
@@ -3930,7 +3961,7 @@
   },
   {
     "Stats": [
-      20945
+      20684
     ],
     "Sections": [
       {
@@ -3961,7 +3992,7 @@
   },
   {
     "Stats": [
-      22393
+      22133
     ],
     "Sections": [
       {
@@ -3980,7 +4011,7 @@
   },
   {
     "Stats": [
-      22397
+      22137
     ],
     "Sections": [
       {
@@ -3999,7 +4030,7 @@
   },
   {
     "Stats": [
-      20279
+      20016
     ],
     "Sections": [
       {
@@ -4030,7 +4061,7 @@
   },
   {
     "Stats": [
-      20279
+      20016
     ],
     "Sections": [
       {
@@ -4049,7 +4080,7 @@
   },
   {
     "Stats": [
-      20280
+      20017
     ],
     "Sections": [
       {
@@ -4068,7 +4099,7 @@
   },
   {
     "Stats": [
-      18284
+      18091
     ],
     "Sections": [
       {
@@ -4087,7 +4118,7 @@
   },
   {
     "Stats": [
-      19938
+      19749
     ],
     "Sections": [
       {
@@ -4118,7 +4149,7 @@
   },
   {
     "Stats": [
-      20682
+      20421
     ],
     "Sections": [
       {
@@ -4137,7 +4168,7 @@
   },
   {
     "Stats": [
-      13880
+      13874
     ],
     "Sections": [
       {
@@ -4168,7 +4199,7 @@
   },
   {
     "Stats": [
-      19905
+      19714
     ],
     "Sections": [
       {
@@ -4181,13 +4212,13 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Rare monsters that are natural inhabitants are imprisoned by Essences"
+        "String": "Rare monsters that are natural inhabitants are [Calcified|Calcified]"
       }
     ]
   },
   {
     "Stats": [
-      20277
+      20014
     ],
     "Sections": [
       {
@@ -4206,7 +4237,7 @@
   },
   {
     "Stats": [
-      20889
+      20628
     ],
     "Sections": [
       {
@@ -4225,7 +4256,7 @@
   },
   {
     "Stats": [
-      14256
+      14235
     ],
     "Sections": [
       {
@@ -4256,7 +4287,7 @@
   },
   {
     "Stats": [
-      15978
+      15859
     ],
     "Sections": [
       {
@@ -4269,7 +4300,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Rerolling Favours at Ritual Altars has no Cost the first {0} time"
+        "String": "Rerolling Favours at Ritual Altars in your Maps has no Cost {0} additional time"
       },
       {
         "StatRanges": [
@@ -4281,13 +4312,13 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Rerolling Favours at Ritual Altars has no Cost the first {0} times"
+        "String": "Rerolling Favours at Ritual Altars in your Maps has no Cost {0} additional times"
       }
     ]
   },
   {
     "Stats": [
-      19909
+      19720
     ],
     "Sections": [
       {
@@ -4318,7 +4349,7 @@
   },
   {
     "Stats": [
-      22541
+      22281
     ],
     "Sections": [
       {
@@ -4349,7 +4380,7 @@
   },
   {
     "Stats": [
-      19902
+      19711
     ],
     "Sections": [
       {
@@ -4380,7 +4411,7 @@
   },
   {
     "Stats": [
-      13956
+      13950
     ],
     "Sections": [
       {
@@ -4411,7 +4442,7 @@
   },
   {
     "Stats": [
-      22380
+      22120
     ],
     "Sections": [
       {
@@ -4424,7 +4455,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "{0}% more Scarabs found in Area"
+        "String": "{0}% more [Thread|Threads] found in Area"
       },
       {
         "StatRanges": [
@@ -4436,13 +4467,13 @@
         "StatConversionTypes": [
           "Negate"
         ],
-        "String": "{0}% less Scarabs found in Area"
+        "String": "{0}% less [Thread|Threads] found in Area"
       }
     ]
   },
   {
     "Stats": [
-      20610
+      20347
     ],
     "Sections": [
       {
@@ -4455,7 +4486,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "{}% more Scarabs found in Area"
+        "String": "{}% more [Thread|Threads] found in Area"
       },
       {
         "StatRanges": [
@@ -4467,13 +4498,13 @@
         "StatConversionTypes": [
           "Negate"
         ],
-        "String": "{}% less Scarabs found in Area"
+        "String": "{}% less [Thread|Threads] found in Area"
       }
     ]
   },
   {
     "Stats": [
-      19990
+      19793
     ],
     "Sections": [
       {
@@ -4504,7 +4535,7 @@
   },
   {
     "Stats": [
-      19907
+      19718
     ],
     "Sections": [
       {
@@ -4523,7 +4554,7 @@
   },
   {
     "Stats": [
-      19906
+      19717
     ],
     "Sections": [
       {
@@ -4542,7 +4573,7 @@
   },
   {
     "Stats": [
-      13721
+      13715
     ],
     "Sections": [
       {
@@ -4561,7 +4592,7 @@
   },
   {
     "Stats": [
-      19903
+      19712
     ],
     "Sections": [
       {
@@ -4580,7 +4611,7 @@
   },
   {
     "Stats": [
-      19904
+      19713
     ],
     "Sections": [
       {
@@ -4599,7 +4630,7 @@
   },
   {
     "Stats": [
-      19475
+      19283
     ],
     "Sections": [
       {
@@ -4618,7 +4649,7 @@
   },
   {
     "Stats": [
-      19474
+      19282
     ],
     "Sections": [
       {
@@ -4637,7 +4668,7 @@
   },
   {
     "Stats": [
-      19485
+      19293
     ],
     "Sections": [
       {
@@ -4656,7 +4687,7 @@
   },
   {
     "Stats": [
-      19486
+      19294
     ],
     "Sections": [
       {
@@ -4675,7 +4706,7 @@
   },
   {
     "Stats": [
-      19484
+      19292
     ],
     "Sections": [
       {
@@ -4688,13 +4719,13 @@
         "StatConversionTypes": [
           "NegateAndDouble"
         ],
-        "String": "{0}% Chance to convert Maps to Scarabs"
+        "String": "{0}% Chance to convert Maps to [Thread|Threads]"
       }
     ]
   },
   {
     "Stats": [
-      19473
+      19281
     ],
     "Sections": [
       {
@@ -4713,7 +4744,7 @@
   },
   {
     "Stats": [
-      19476
+      19284
     ],
     "Sections": [
       {
@@ -4732,7 +4763,7 @@
   },
   {
     "Stats": [
-      19914
+      19725
     ],
     "Sections": [
       {
@@ -4745,7 +4776,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Immortal Syndicate members have a {0}% chance to drop an additional Scarab when defeated"
+        "String": "Immortal Syndicate members have a {0}% chance to drop an additional [Thread] when defeated"
       },
       {
         "StatRanges": [
@@ -4757,13 +4788,32 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Immortal Syndicate members drop an additional Scarab when defeated"
+        "String": "Immortal Syndicate members drop an additional [Thread] when defeated"
       }
     ]
   },
   {
     "Stats": [
-      15688
+      23291
+    ],
+    "Sections": [
+      {
+        "StatRanges": [
+          {
+            "Item1": -2147483648,
+            "Item2": 2147483647
+          }
+        ],
+        "StatConversionTypes": [
+          "NoFunction"
+        ],
+        "String": "Area is dominated by [TerrorShrines|Terror Shrines]"
+      }
+    ]
+  },
+  {
+    "Stats": [
+      15664
     ],
     "Sections": [
       {
@@ -4794,7 +4844,7 @@
   },
   {
     "Stats": [
-      22544
+      22284
     ],
     "Sections": [
       {
@@ -4825,7 +4875,7 @@
   },
   {
     "Stats": [
-      19923
+      19734
     ],
     "Sections": [
       {
@@ -4844,7 +4894,7 @@
   },
   {
     "Stats": [
-      19924
+      19735
     ],
     "Sections": [
       {
@@ -4863,7 +4913,7 @@
   },
   {
     "Stats": [
-      20931
+      20670
     ],
     "Sections": [
       {
@@ -4882,7 +4932,7 @@
   },
   {
     "Stats": [
-      19933
+      19744
     ],
     "Sections": [
       {
@@ -4901,7 +4951,7 @@
   },
   {
     "Stats": [
-      19931
+      19742
     ],
     "Sections": [
       {
@@ -4920,7 +4970,7 @@
   },
   {
     "Stats": [
-      19932
+      19743
     ],
     "Sections": [
       {
@@ -4939,7 +4989,7 @@
   },
   {
     "Stats": [
-      19901
+      19710
     ],
     "Sections": [
       {
@@ -4970,7 +5020,7 @@
   },
   {
     "Stats": [
-      20694
+      20433
     ],
     "Sections": [
       {
@@ -5001,7 +5051,7 @@
   },
   {
     "Stats": [
-      19942
+      19753
     ],
     "Sections": [
       {
@@ -5032,7 +5082,7 @@
   },
   {
     "Stats": [
-      20693
+      20432
     ],
     "Sections": [
       {
@@ -5063,7 +5113,7 @@
   },
   {
     "Stats": [
-      20793
+      20532
     ],
     "Sections": [
       {
@@ -5094,7 +5144,7 @@
   },
   {
     "Stats": [
-      20795
+      20534
     ],
     "Sections": [
       {
@@ -5125,7 +5175,7 @@
   },
   {
     "Stats": [
-      20794
+      20533
     ],
     "Sections": [
       {
@@ -5138,7 +5188,7 @@
         "StatConversionTypes": [
           "NoFunction"
         ],
-        "String": "Unique Bosses have {0} increased Toughness per 1% Map Pack Size"
+        "String": "Unique Bosses have {0}% increased Toughness per 1% Map Pack Size"
       },
       {
         "StatRanges": [
@@ -5150,13 +5200,13 @@
         "StatConversionTypes": [
           "Negate"
         ],
-        "String": "Unique Bosses have {0} reduced Toughness per 1% Map Pack Size"
+        "String": "Unique Bosses have {0}% reduced Toughness per 1% Map Pack Size"
       }
     ]
   },
   {
     "Stats": [
-      22552
+      22292
     ],
     "Sections": [
       {
@@ -5175,7 +5225,7 @@
   },
   {
     "Stats": [
-      13881
+      13875
     ],
     "Sections": [
       {
@@ -5206,7 +5256,7 @@
   },
   {
     "Stats": [
-      22261
+      22001
     ],
     "Sections": [
       {
@@ -5225,7 +5275,7 @@
   },
   {
     "Stats": [
-      15992
+      15873
     ],
     "Sections": [
       {
@@ -5244,7 +5294,7 @@
   },
   {
     "Stats": [
-      15994
+      15875
     ],
     "Sections": [
       {
@@ -5263,7 +5313,7 @@
   },
   {
     "Stats": [
-      22538
+      22278
     ],
     "Sections": [
       {
@@ -5282,7 +5332,7 @@
   },
   {
     "Stats": [
-      21185
+      20925
     ],
     "Sections": [
       {
@@ -5301,7 +5351,7 @@
   },
   {
     "Stats": [
-      20835
+      20574
     ],
     "Sections": [
       {
@@ -5332,7 +5382,7 @@
   },
   {
     "Stats": [
-      20869
+      20608
     ],
     "Sections": [
       {
